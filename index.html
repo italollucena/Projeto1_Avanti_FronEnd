@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="style.css" />
     <link
       href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap"
       rel="stylesheet"
@@ -12,30 +12,36 @@
     <script src="https://cdn.tailwindcss.com"></script>
   </head>
   <body>
-    <!-- Promoção -->
-    <div
-      class="bg-blue-500 text-white text-center py-1 fixed top-0 left-0 right-0 z-50"
-    >
-      Ganhe <span class="font-bold text-base">R$10,00</span> de desconto no seu
-      primeiro pedido. Utilize o cupom <span class="font-bold">DESCONTO10</span>
-    </div>
-
-    <header class="bg-white shadow-md p-4 fixed top-7 left-0 right-0 z-40 mt-1">
+    <header class="bg-white px-4 py-[3px] fixed top-0 left-0 right-0 z-40">
+      <!-- Barra azul fixa -->
       <div
-        class="container mx-auto flex flex-col md:flex-row items-center justify-between"
+        class="bg-blue-500 text-white text-center py-1 fixed top-0 left-0 right-0 z-50"
       >
-        <div class="flex items-center ml-4">
-          <img src="imagens/logo-black.svg" logo="Logo" class="h-10" />
+        Ganhe <span class="font-bold text-base">R$10,00</span> de desconto no
+        seu primeiro pedido. Utilize o cupom
+        <span class="font-bold">DESCONTO10</span>
+      </div>
+
+      <!-- Container principal com espaço da barra azul -->
+      <div
+        class="container mx-auto mt-0.9 flex flex-col gap-y-2 md:flex-row md:items-center md:justify-between"
+      >
+        <!-- Logo -->
+        <div
+          class="flex items-center justify-center md:justify-start w-auto flex-shrink-0 mt-9"
+        >
+          <img src="imagens/logo-black.svg" alt="Logo" class="h-10" />
         </div>
 
         <!-- Barra de pesquisa -->
-        <div class="relative w-full md:w-1/3 mt-2 md:mt-0">
+        <div class="relative w-full md:w-1/3 mt-9">
           <input
             type="text"
             placeholder="Digite aqui o que você procura"
-            class="w-full border border-gray-300 rounded-md p-2"
+            class="w-full border border-gray-300 rounded-md py-1.5 px-2 text-sm"
           />
-          <button class="absolute right-2 top-2 text-gray-500">
+          <button class="absolute right-2 top-1.5 text-gray-500">
+            <!-- Ícone de busca -->
             <svg
               xmlns="http://www.w3.org/2000/svg"
               class="w-5 h-5"
@@ -52,47 +58,50 @@
           </button>
         </div>
 
-        <!-- Ícones de usuário e carrinho -->
-        <div class="flex items-center justify-between">
+        <!-- Usuário e carrinho -->
+        <div class="flex items-center gap-x-4 w-auto flex-shrink-0 mt-9">
           <div class="flex items-center space-x-2">
-            <span class="text-blue-500 text-2xl">👤</span>
-            <div class="flex flex-col leading-tight text-sm">
+            <span class="text-purple-900 text-2xl">👤</span>
+            <div
+              class="flex flex-col leading-tight text-sm text-center md:text-left"
+            >
               <span class="text-gray-700">Olá,</span>
               <span class="font-semibold">Nome cliente!</span>
             </div>
           </div>
-          <span class="text-2xl ml-6"
-            >🛒<sup class="text-red-500 text-sm">2</sup></span
-          >
+          <span class="text-2xl">
+            🛒<sup class="text-red-500 text-sm">2</sup>
+          </span>
         </div>
       </div>
 
-      <!-- Menu de Navegação -->
-      <nav class="bg-white mt-4">
+      <nav class="bg-white mt-0.9">
         <div class="container mx-auto flex flex-col md:flex-row items-center">
           <ul
-            class="flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-6 p-4"
+            class="flex flex-col md:flex-row items-center space-y-2 md:space-y-0 md:space-x-4 px-2 py-1"
           >
-            <li
-              class="relative group flex items-center space-x-2 cursor-pointer"
-            >
-              <!-- Ícone de menu hambúrguer -->
-              <div class="relative group">
-                <span
-                  class="text-xl font-bold text-blue-600 cursor-pointer"
-                  onclick="toggleMenu(event)"
-                  >☰</span
-                >
-                <a href="#" class="font-bold text-blue-600"
-                  >Todas as Categorias</a
-                >
-              </div>
+            <li class="relative group flex items-center space-x-2">
+              <!-- Botão de menu hamburguer -->
+              <button
+                onclick="toggleMenu(event)"
+                class="text-xl font-bold text-blue-600 cursor-pointer peer focus:outline-none"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                ☰
+              </button>
+              <a href="#" class="font-bold text-blue-600"
+                >Todas as Categorias</a
+              >
+
               <!-- Menu suspenso -->
               <div
-                class="absolute left-0 top-full hidden group-hover:flex bg-white shadow-lg border p-4 w-full md:w-[800px]"
+                class="absolute left-0 top-full hidden peer-focus-within:flex group-hover:flex bg-white shadow-lg border p-4 w-full md:w-[800px] z-50"
+                id="dropdownMenu"
               >
                 <div class="w-full md:w-1/3 border-r overflow-y-auto max-h-60">
                   <ul>
+                    <!-- Lista de Departamentos -->
                     <li
                       class="p-2 hover:bg-gray-200 cursor-pointer"
                       data-category="cat1"
@@ -156,7 +165,6 @@
                   </ul>
                 </div>
                 <div class="w-full md:w-2/3 p-4">
-                  <!-- Conteúdo das categorias -->
                   <div class="hidden category-content" id="cat1">
                     <h3 class="font-bold text-blue-600">Departamento 1</h3>
                     <ul class="grid grid-cols-1 md:grid-cols-3 gap-2">
@@ -327,11 +335,11 @@
                       <li class="p-1">Categoria</li>
                     </ul>
                   </div>
-                  <!-- Repita o conteúdo para os outros departamentos -->
-                  <!-- ... -->
                 </div>
               </div>
             </li>
+
+            <!-- Outros departamentos simples -->
             <li class="hidden md:block">
               <a href="#" class="hover:text-blue-600">Departamento</a>
             </li>
@@ -361,552 +369,750 @@
       </nav>
     </header>
 
-    <!-- Hero Section -->
-    <section
-      class="bg-gray-200 py-0.9 flex flex-col md:flex-row items-center justify-center pt-40"
-    >
-      <div class="max-w-4xl flex flex-col md:flex-row items-center text-left">
-        <img
-          src="imagens/Cadeira com roupas.jpeg"
-          alt="Cadeira com roupas"
-          class="w-full md:w-1/2 max-w-lg mr-0 md:mr-6 mb-4 md:mb-0"
-        />
-        <div class="font-montserrat text-center md:text-left">
-          <h2 class="text-5xl md:text-7xl">
-            <span class="text-black font-bold">SUPER</span>
-            <span class="text-gray-600 ml-[-0.9rem]">SALE</span>
-          </h2>
-          <br />
-          <p class="text-center text-blue-600 mt-2 tracking-[0.3em] font-bold">
-            ITENS SELECIONADOS COM ATÉ
-          </p>
-          <br />
-          <p class="text-center">
-            <span class="text-4xl md:text-5xl font-bold text-blue-600"
-              >50% OFF</span
-            >
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <div class="w-full max-w-6xl mx-auto p-4">
-      <h2 class="text-2xl font-bold mb-4">Lançamentos</h2>
-      <div class="relative flex items-center">
-        <button
-          class="absolute left-0 z-10 bg-white p-3 rounded-full shadow-md"
-          onclick="prevSlide()"
-        >
-          &#8592;
-        </button>
-
-        <div class="flex gap-4 overflow-x-auto scrollbar-hide">
-          <div
-            class="min-w-[220px] p-4 border rounded-lg shadow-lg flex flex-col items-center"
-          >
-            <span class="bg-blue-500 text-white px-2 py-1 text-xs rounded-full"
-              >NOVO</span
-            >
-            <img
-              src="imagens/blusa1.webp"
-              alt="Produto"
-              class="w-40 h-42 my-2"
-            />
-            <h3 class="text-sm font-semibold text-center">Produto 1</h3>
-            <div class="text-gray-500 line-through">R$100,00</div>
-            <div class="text-green-600 font-bold">R$79,90</div>
-            <span
-              class="bg-green-100 text-green-600 text-xs px-2 py-1 rounded-md"
-              >10% OFF</span
-            >
-            <p class="text-xs text-gray-500 mt-1">Ou em até 10x de R$ 7,90</p>
-            <button class="mt-4 bg-blue-600 text-white px-4 py-2 rounded-md">
-              Comprar
-            </button>
-          </div>
-        </div>
-
-        <div class="flex gap-4 overflow-x-auto scrollbar-hide">
-          <div
-            class="min-w-[220px] p-4 border rounded-lg shadow-lg flex flex-col items-center"
-          >
-            <span class="bg-blue-500 text-white px-2 py-1 text-xs rounded-full"
-              >NOVO</span
-            >
-            <img
-              src="imagens/blusa2.webp"
-              alt="Produto"
-              class="w-40 h-42 my-2"
-            />
-            <h3 class="text-sm font-semibold text-center">Produto 1</h3>
-            <div class="text-gray-500 line-through">R$100,00</div>
-            <div class="text-green-600 font-bold">R$79,90</div>
-            <span
-              class="bg-green-100 text-green-600 text-xs px-2 py-1 rounded-md"
-              >10% OFF</span
-            >
-            <p class="text-xs text-gray-500 mt-1">Ou em até 10x de R$ 7,90</p>
-            <button class="mt-4 bg-blue-600 text-white px-4 py-2 rounded-md">
-              Comprar
-            </button>
-          </div>
-        </div>
-
-        <div class="flex gap-4 overflow-x-auto scrollbar-hide">
-          <div
-            class="min-w-[220px] p-4 border rounded-lg shadow-lg flex flex-col items-center"
-          >
-            <span class="bg-blue-500 text-white px-2 py-1 text-xs rounded-full"
-              >NOVO</span
-            >
-            <img
-              src="imagens/blusa3.webp"
-              alt="Produto"
-              class="w-40 h-42 my-2"
-            />
-            <h3 class="text-sm font-semibold text-center">Produto 1</h3>
-            <div class="text-gray-500 line-through">R$100,00</div>
-            <div class="text-green-600 font-bold">R$79,90</div>
-            <span
-              class="bg-green-100 text-green-600 text-xs px-2 py-1 rounded-md"
-              >10% OFF</span
-            >
-            <p class="text-xs text-gray-500 mt-1">Ou em até 10x de R$ 7,90</p>
-            <button class="mt-4 bg-blue-600 text-white px-4 py-2 rounded-md">
-              Comprar
-            </button>
-          </div>
-        </div>
-
-        <div class="flex gap-4 overflow-x-auto scrollbar-hide">
-          <div
-            class="min-w-[220px] p-4 border rounded-lg shadow-lg flex flex-col items-center"
-          >
-            <span class="bg-blue-500 text-white px-2 py-1 text-xs rounded-full"
-              >NOVO</span
-            >
-            <img
-              src="imagens/blusa4.webp"
-              alt="Produto"
-              class="w-40 h-42 my-2"
-            />
-            <h3 class="text-sm font-semibold text-center">Produto 1</h3>
-            <div class="text-gray-500 line-through">R$100,00</div>
-            <div class="text-green-600 font-bold">R$79,90</div>
-            <span
-              class="bg-green-100 text-green-600 text-xs px-2 py-1 rounded-md"
-              >10% OFF</span
-            >
-            <p class="text-xs text-gray-500 mt-1">Ou em até 10x de R$ 7,90</p>
-            <button class="mt-4 bg-blue-600 text-white px-4 py-2 rounded-md">
-              Comprar
-            </button>
-          </div>
-        </div>
-
-        <div class="flex gap-4 overflow-x-auto scrollbar-hide">
-          <div
-            class="min-w-[220px] p-4 border rounded-lg shadow-lg flex flex-col items-center"
-          >
-            <span class="bg-blue-500 text-white px-2 py-1 text-xs rounded-full"
-              >NOVO</span
-            >
-            <img
-              src="imagens/blusa5.webp"
-              alt="Produto"
-              class="w-40 h-42 my-2"
-            />
-            <h3 class="text-sm font-semibold text-center">Produto 1</h3>
-            <div class="text-gray-500 line-through">R$100,00</div>
-            <div class="text-green-600 font-bold">R$79,90</div>
-            <span
-              class="bg-green-100 text-green-600 text-xs px-2 py-1 rounded-md"
-              >10% OFF</span
-            >
-            <p class="text-xs text-gray-500 mt-1">Ou em até 10x de R$ 7,90</p>
-            <button class="mt-4 bg-blue-600 text-white px-4 py-2 rounded-md">
-              Comprar
-            </button>
-          </div>
-        </div>
-
-        <button
-          class="absolute right-0 z-10 bg-white p-3 rounded-full shadow-md"
-          onclick="nextSlide()"
-        >
-          &#8594;
-        </button>
-      </div>
-    </div>
-
-    <!-- Segunda Seção mais próxima -->
-    <div class="mt-8 flex items-center justify-center p-4">
-      <div
-        class="bg-white rounded-lg overflow-hidden max-w-4xl w-full flex flex-col md:flex-row"
+    <main class="pt-[120px]">
+      <!-- Hero Section -->
+      <section
+        class="bg-gray-200 pt-[1px] flex flex-col md:flex-row items-center justify-center"
       >
-        <div class="md:w-1/2 flex items-center justify-center p-6">
+        <div class="max-w-4xl flex flex-col md:flex-row items-center text-left">
           <img
-            src="imagens/caneca.png"
-            alt="Caneca Avanti"
-            class="max-w-full h-auto"
+            src="imagens/Cadeira com roupas.jpeg"
+            alt="Cadeira com roupas"
+            class="w-full md:w-1/2 max-w-lg mr-0 md:mr-6 mb-4 md:mb-0"
           />
-        </div>
-        <div class="md:w-1/3 bg-white p-6">
-          <h2 class="text-xl font-bold mb-4">LOREM IPSUM</h2>
-          <p class="text-gray-700 text-sm mb-4">
-            Duis consectetur metus nec lacus auctor dignissim. Mauris vitae
-            finibus dui. Mauris laoreet lacus ut eleifend viverra.
-          </p>
-          <p class="text-gray-700 text-sm mb-4">
-            Duis consectetur metus nec lacus auctor dignissim. Mauris vitae
-            finibus dui. Mauris laoreet lacus ut eleifend viverra.
-          </p>
-          <p class="text-gray-700 text-sm mb-4">
-            Duis consectetur metus nec lacus auctor dignissim. Mauris vitae
-            finibus dui. Mauris laoreet lacus ut eleifend viverra.
-          </p>
-          <p class="text-gray-700 text-sm mb-4">
-            Duis consectetur metus nec lacus auctor dignissim. Mauris vitae
-            finibus dui. Mauris laoreet lacus ut eleifend viverra.
-          </p>
-          <p class="text-gray-700 text-sm">
-            Duis consectetur metus nec lacus auctor dignissim. Mauris vitae
-            finibus dui. Mauris laoreet lacus ut eleifend viverra.
-          </p>
-        </div>
-      </div>
-    </div>
-
-    <div class="bg-gray-200 w-full py-12">
-      <div
-        class="flex flex-col md:flex-row items-center p-8 md:p-12 rounded-lg max-w-5xl mx-auto"
-      >
-        <!-- Esquerda: Texto e Ícones -->
-        <div class="flex-1 space-y-6">
-          <h2 class="text-gray-700 text-2xl font-semibold">LOREM IPSUM</h2>
-          <div class="space-y-6">
-            <div class="flex items-start space-x-4">
-              <div
-                class="w-12 h-12 flex items-center justify-center bg-blue-600 text-white rounded-full"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke-width="2"
-                  stroke="currentColor"
-                  class="w-7 h-7"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    d="M12 2C8.134 2 5 5.134 5 9c0 4.418 4 9 7 11 3-2 7-6.582 7-11 0-3.866-3.134-7-7-7z"
-                  />
-                </svg>
-              </div>
-              <p class="text-gray-600">
-                Aenean massa. Cum sociis natoque penatibus et magnis dis
-                parturient montes...
-              </p>
-            </div>
-            <div class="flex items-start space-x-4">
-              <div
-                class="w-12 h-12 flex items-center justify-center bg-blue-600 text-white rounded-full"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke-width="2"
-                  stroke="currentColor"
-                  class="w-7 h-7"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    d="M12 2C8.134 2 5 5.134 5 9c0 4.418 4 9 7 11 3-2 7-6.582 7-11 0-3.866-3.134-7-7-7z"
-                  />
-                </svg>
-              </div>
-              <p class="text-gray-600">
-                Aenean massa. Cum sociis natoque penatibus et magnis dis
-                parturient montes...
-              </p>
-            </div>
-            <div class="flex items-start space-x-4">
-              <div
-                class="w-12 h-12 flex items-center justify-center bg-blue-600 text-white rounded-full"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke-width="2"
-                  stroke="currentColor"
-                  class="w-7 h-7"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    d="M12 2C8.134 2 5 5.134 5 9c0 4.418 4 9 7 11 3-2 7-6.582 7-11 0-3.866-3.134-7-7-7z"
-                  />
-                </svg>
-              </div>
-              <p class="text-gray-600">
-                Aenean massa. Cum sociis natoque penatibus et magnis dis
-                parturient montes...
-              </p>
-            </div>
+          <div class="font-montserrat text-center md:text-left">
+            <h2 class="text-5xl md:text-7xl">
+              <span class="text-black font-bold">SUPER</span>
+              <span class="text-gray-600 ml-[-0.9rem]">SALE</span>
+            </h2>
+            <br />
+            <p
+              class="text-center text-blue-600 mt-2 tracking-[0.3em] font-bold"
+            >
+              ITENS SELECIONADOS COM ATÉ
+            </p>
+            <br />
+            <p class="text-center">
+              <span class="text-4xl md:text-5xl font-bold text-blue-600">
+                50% OFF
+              </span>
+            </p>
           </div>
         </div>
-        <!-- Direita: Imagem -->
-        <div class="flex-1 flex justify-center mt-6 md:mt-0">
-          <img
-            src="imagens/caneca2.png"
-            alt="Caneca Avanti"
-            class="max-w-sm rounded-lg shadow-lg"
-          />
-        </div>
-      </div>
-    </div>
+      </section>
 
-    <div class="mt-8 flex items-center justify-center p-4">
-      <div
-        class="bg-white rounded-lg overflow-hidden max-w-4xl w-full flex flex-col md:flex-row"
-      >
-        <div class="md:w-1/2 flex items-center justify-center p-6">
-          <img
-            src="imagens/caneca.png"
-            alt="Caneca Avanti"
-            class="max-w-full h-auto"
-          />
-        </div>
-        <div class="md:w-1/3 bg-white p-6">
-          <h2 class="text-xl font-bold mb-4">LOREM IPSUM</h2>
-          <p class="text-gray-700 text-sm mb-4">
-            Duis consectetur metus nec lacus auctor dignissim. Mauris vitae
-            finibus dui. Mauris laoreet lacus ut eleifend viverra.
-          </p>
-          <p class="text-gray-700 text-sm mb-4">
-            Duis consectetur metus nec lacus auctor dignissim. Mauris vitae
-            finibus dui. Mauris laoreet lacus ut eleifend viverra.
-          </p>
-          <p class="text-gray-700 text-sm mb-4">
-            Duis consectetur metus nec lacus auctor dignissim. Mauris vitae
-            finibus dui. Mauris laoreet lacus ut eleifend viverra.
-          </p>
-          <p class="text-gray-700 text-sm mb-4">
-            Duis consectetur metus nec lacus auctor dignissim. Mauris vitae
-            finibus dui. Mauris laoreet lacus ut eleifend viverra.
-          </p>
-          <p class="text-gray-700 text-sm">
-            Duis consectetur metus nec lacus auctor dignissim. Mauris vitae
-            finibus dui. Mauris laoreet lacus ut eleifend viverra.
-          </p>
-        </div>
-      </div>
-    </div>
+      <div class="w-full max-w-6xl mx-auto p-4">
+        <h2 class="text-2xl font-bold mb-4">Lançamentos</h2>
 
-    <div class="w-full max-w-6xl mx-auto p-4">
-      <h2 class="text-2xl font-bold mb-4">Lançamentos</h2>
-      <div class="relative flex items-center">
-        <button
-          class="absolute left-0 z-10 bg-white p-3 rounded-full shadow-md"
-          onclick="prevSlide()"
-        >
-          &#8592;
-        </button>
-
-        <div class="flex gap-4 overflow-x-auto scrollbar-hide">
-          <div
-            class="min-w-[220px] p-4 border rounded-lg shadow-lg flex flex-col items-center"
-          >
-            <span class="bg-blue-500 text-white px-2 py-1 text-xs rounded-full"
-              >NOVO</span
-            >
-            <img
-              src="imagens/blusa1.webp"
-              alt="Produto"
-              class="w-40 h-42 my-2"
-            />
-            <h3 class="text-sm font-semibold text-center">Produto 1</h3>
-            <div class="text-gray-500 line-through">R$100,00</div>
-            <div class="text-green-600 font-bold">R$79,90</div>
-            <span
-              class="bg-green-100 text-green-600 text-xs px-2 py-1 rounded-md"
-              >10% OFF</span
-            >
-            <p class="text-xs text-gray-500 mt-1">Ou em até 10x de R$ 7,90</p>
-            <button class="mt-4 bg-blue-600 text-white px-4 py-2 rounded-md">
-              Comprar
-            </button>
-          </div>
-        </div>
-
-        <div class="flex gap-4 overflow-x-auto scrollbar-hide">
-          <div
-            class="min-w-[220px] p-4 border rounded-lg shadow-lg flex flex-col items-center"
-          >
-            <span class="bg-blue-500 text-white px-2 py-1 text-xs rounded-full"
-              >NOVO</span
-            >
-            <img
-              src="imagens/blusa2.webp"
-              alt="Produto"
-              class="w-40 h-42 my-2"
-            />
-            <h3 class="text-sm font-semibold text-center">Produto 1</h3>
-            <div class="text-gray-500 line-through">R$100,00</div>
-            <div class="text-green-600 font-bold">R$79,90</div>
-            <span
-              class="bg-green-100 text-green-600 text-xs px-2 py-1 rounded-md"
-              >10% OFF</span
-            >
-            <p class="text-xs text-gray-500 mt-1">Ou em até 10x de R$ 7,90</p>
-            <button class="mt-4 bg-blue-600 text-white px-4 py-2 rounded-md">
-              Comprar
-            </button>
-          </div>
-        </div>
-
-        <div class="flex gap-4 overflow-x-auto scrollbar-hide">
-          <div
-            class="min-w-[220px] p-4 border rounded-lg shadow-lg flex flex-col items-center"
-          >
-            <span class="bg-blue-500 text-white px-2 py-1 text-xs rounded-full"
-              >NOVO</span
-            >
-            <img
-              src="imagens/blusa3.webp"
-              alt="Produto"
-              class="w-40 h-42 my-2"
-            />
-            <h3 class="text-sm font-semibold text-center">Produto 1</h3>
-            <div class="text-gray-500 line-through">R$100,00</div>
-            <div class="text-green-600 font-bold">R$79,90</div>
-            <span
-              class="bg-green-100 text-green-600 text-xs px-2 py-1 rounded-md"
-              >10% OFF</span
-            >
-            <p class="text-xs text-gray-500 mt-1">Ou em até 10x de R$ 7,90</p>
-            <button class="mt-4 bg-blue-600 text-white px-4 py-2 rounded-md">
-              Comprar
-            </button>
-          </div>
-        </div>
-
-        <div class="flex gap-4 overflow-x-auto scrollbar-hide">
-          <div
-            class="min-w-[220px] p-4 border rounded-lg shadow-lg flex flex-col items-center"
-          >
-            <span class="bg-blue-500 text-white px-2 py-1 text-xs rounded-full"
-              >NOVO</span
-            >
-            <img
-              src="imagens/blusa4.webp"
-              alt="Produto"
-              class="w-40 h-42 my-2"
-            />
-            <h3 class="text-sm font-semibold text-center">Produto 1</h3>
-            <div class="text-gray-500 line-through">R$100,00</div>
-            <div class="text-green-600 font-bold">R$79,90</div>
-            <span
-              class="bg-green-100 text-green-600 text-xs px-2 py-1 rounded-md"
-              >10% OFF</span
-            >
-            <p class="text-xs text-gray-500 mt-1">Ou em até 10x de R$ 7,90</p>
-            <button class="mt-4 bg-blue-600 text-white px-4 py-2 rounded-md">
-              Comprar
-            </button>
-          </div>
-        </div>
-
-        <div class="flex gap-4 overflow-x-auto scrollbar-hide">
-          <div
-            class="min-w-[220px] p-4 border rounded-lg shadow-lg flex flex-col items-center"
-          >
-            <span class="bg-blue-500 text-white px-2 py-1 text-xs rounded-full"
-              >NOVO</span
-            >
-            <img
-              src="imagens/blusa5.webp"
-              alt="Produto"
-              class="w-40 h-42 my-2"
-            />
-            <h3 class="text-sm font-semibold text-center">Produto 1</h3>
-            <div class="text-gray-500 line-through">R$100,00</div>
-            <div class="text-green-600 font-bold">R$79,90</div>
-            <span
-              class="bg-green-100 text-green-600 text-xs px-2 py-1 rounded-md"
-              >10% OFF</span
-            >
-            <p class="text-xs text-gray-500 mt-1">Ou em até 10x de R$ 7,90</p>
-            <button class="mt-4 bg-blue-600 text-white px-4 py-2 rounded-md">
-              Comprar
-            </button>
-          </div>
-        </div>
-
-        <button
-          class="absolute right-0 z-10 bg-white p-3 rounded-full shadow-md"
-          onclick="nextSlide()"
-        >
-          &#8594;
-        </button>
-      </div>
-    </div>
-
-    <div class="relative w-full h-[40vh] md:h-[50vh] lg:h-[60vh] mt-10">
-      <img
-        src="imagens/fundoavanti2.png"
-        alt="Imagem de fundo"
-        class="w-full h-full object-cover"
-      />
-      <div
-        class="absolute inset-x-0 top-[46%] transform -translate-y-1/2 text-white text-center px-6 py-3 text-lg font-semibold w-full"
-      >
-        Entre em contato conosco e verifique a disponibilidade para sua região!
-      </div>
-    </div>
-
-    <div class="flex justify-center mt-12">
-      <div
-        class="w-full max-w-4xl p-6 bg-gray-200 rounded-lg shadow-md flex flex-col items-center"
-      >
-        <h2 class="text-center text-lg font-semibold mb-4">
-          Cadastre-se na nossa <a href="#" class="text-blue-600">newsletter</a>
-        </h2>
-        <form
-          class="flex flex-col items-center md:flex-row md:justify-center gap-4 w-full"
-        >
-          <input
-            type="text"
-            placeholder="Digite seu nome"
-            class="w-full md:w-auto px-4 py-2 border rounded-lg outline-none"
-          />
-          <input
-            type="email"
-            placeholder="Digite seu e-mail"
-            class="w-full md:w-auto px-4 py-2 border rounded-lg outline-none"
-          />
-          <div class="flex items-center">
-            <input type="checkbox" id="privacy" class="mr-2" />
-            <label for="privacy" class="text-sm text-gray-600">
-              Estou de acordo com a
-              <a href="#" class="text-gray-800 underline"
-                >Política de Privacidade</a
-              >
-            </label>
-          </div>
+        <div class="relative">
+          <!-- Botão anterior -->
           <button
-            type="submit"
-            class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
+            class="absolute left-0 top-1/2 transform -translate-y-1/2 z-10 bg-white p-2 md:p-3 rounded-full shadow-md"
+            onclick="scrollCarousel(-1)"
           >
-            Cadastrar
+            &#8592;
           </button>
-        </form>
+
+          <!-- Container de produtos -->
+          <div
+            id="carousel"
+            class="flex gap-4 overflow-x-auto scroll-smooth px-10 md:px-16 scrollbar-hide touch-pan-x snap-x snap-mandatory"
+          >
+            <!-- Card de produto (repita quantos quiser) -->
+            <div
+              class="min-w-[220px] max-w-[250px] p-4 border rounded-lg shadow-lg flex-shrink-0 flex flex-col items-center bg-white snap-start"
+            >
+              <span
+                class="bg-blue-500 text-white px-2 py-1 text-xs rounded-full"
+                >NOVO</span
+              >
+              <img
+                src="imagens/blusa1.webp"
+                alt="Produto"
+                class="w-40 h-42 my-2"
+              />
+              <h3 class="text-sm font-semibold text-center">Produto 1</h3>
+              <div class="text-gray-500 line-through">R$100,00</div>
+              <div class="text-green-600 font-bold">R$79,90</div>
+              <span
+                class="bg-green-100 text-green-600 text-xs px-2 py-1 rounded-md"
+                >10% OFF</span
+              >
+              <p class="text-xs text-gray-500 mt-1">Ou em até 10x de R$ 7,90</p>
+              <button class="mt-4 bg-blue-600 text-white px-4 py-2 rounded-md">
+                Comprar
+              </button>
+            </div>
+            <div
+              class="min-w-[220px] max-w-[250px] p-4 border rounded-lg shadow-lg flex-shrink-0 flex flex-col items-center bg-white snap-start"
+            >
+              <span
+                class="bg-blue-500 text-white px-2 py-1 text-xs rounded-full"
+                >NOVO</span
+              >
+              <img
+                src="imagens/blusa2.webp"
+                alt="Produto"
+                class="w-40 h-42 my-2"
+              />
+              <h3 class="text-sm font-semibold text-center">Produto 2</h3>
+              <div class="text-gray-500 line-through">R$100,00</div>
+              <div class="text-green-600 font-bold">R$79,90</div>
+              <span
+                class="bg-green-100 text-green-600 text-xs px-2 py-1 rounded-md"
+                >10% OFF</span
+              >
+              <p class="text-xs text-gray-500 mt-1">Ou em até 10x de R$ 7,90</p>
+              <button class="mt-4 bg-blue-600 text-white px-4 py-2 rounded-md">
+                Comprar
+              </button>
+            </div>
+            <div
+              class="min-w-[220px] max-w-[250px] p-4 border rounded-lg shadow-lg flex-shrink-0 flex flex-col items-center bg-white snap-start"
+            >
+              <span
+                class="bg-blue-500 text-white px-2 py-1 text-xs rounded-full"
+                >NOVO</span
+              >
+              <img
+                src="imagens/blusa3.webp"
+                alt="Produto"
+                class="w-40 h-42 my-2"
+              />
+              <h3 class="text-sm font-semibold text-center">Produto 3</h3>
+              <div class="text-gray-500 line-through">R$100,00</div>
+              <div class="text-green-600 font-bold">R$79,90</div>
+              <span
+                class="bg-green-100 text-green-600 text-xs px-2 py-1 rounded-md"
+                >10% OFF</span
+              >
+              <p class="text-xs text-gray-500 mt-1">Ou em até 10x de R$ 7,90</p>
+              <button class="mt-4 bg-blue-600 text-white px-4 py-2 rounded-md">
+                Comprar
+              </button>
+            </div>
+            <div
+              class="min-w-[220px] max-w-[250px] p-4 border rounded-lg shadow-lg flex-shrink-0 flex flex-col items-center bg-white snap-start"
+            >
+              <span
+                class="bg-blue-500 text-white px-2 py-1 text-xs rounded-full"
+                >NOVO</span
+              >
+              <img
+                src="imagens/blusa4.webp"
+                alt="Produto"
+                class="w-40 h-42 my-2"
+              />
+              <h3 class="text-sm font-semibold text-center">Produto 4</h3>
+              <div class="text-gray-500 line-through">R$100,00</div>
+              <div class="text-green-600 font-bold">R$79,90</div>
+              <span
+                class="bg-green-100 text-green-600 text-xs px-2 py-1 rounded-md"
+                >10% OFF</span
+              >
+              <p class="text-xs text-gray-500 mt-1">Ou em até 10x de R$ 7,90</p>
+              <button class="mt-4 bg-blue-600 text-white px-4 py-2 rounded-md">
+                Comprar
+              </button>
+            </div>
+            <div
+              class="min-w-[220px] max-w-[250px] p-4 border rounded-lg shadow-lg flex-shrink-0 flex flex-col items-center bg-white snap-start"
+            >
+              <span
+                class="bg-blue-500 text-white px-2 py-1 text-xs rounded-full"
+                >NOVO</span
+              >
+              <img
+                src="imagens/blusa5.webp"
+                alt="Produto"
+                class="w-40 h-42 my-2"
+              />
+              <h3 class="text-sm font-semibold text-center">Produto 5</h3>
+              <div class="text-gray-500 line-through">R$100,00</div>
+              <div class="text-green-600 font-bold">R$79,90</div>
+              <span
+                class="bg-green-100 text-green-600 text-xs px-2 py-1 rounded-md"
+                >10% OFF</span
+              >
+              <p class="text-xs text-gray-500 mt-1">Ou em até 10x de R$ 7,90</p>
+              <button class="mt-4 bg-blue-600 text-white px-4 py-2 rounded-md">
+                Comprar
+              </button>
+            </div>
+            <div
+              class="min-w-[220px] max-w-[250px] p-4 border rounded-lg shadow-lg flex-shrink-0 flex flex-col items-center bg-white snap-start"
+            >
+              <span
+                class="bg-blue-500 text-white px-2 py-1 text-xs rounded-full"
+                >NOVO</span
+              >
+              <img
+                src="imagens/blusa1.webp"
+                alt="Produto"
+                class="w-40 h-42 my-2"
+              />
+              <h3 class="text-sm font-semibold text-center">Produto 1</h3>
+              <div class="text-gray-500 line-through">R$100,00</div>
+              <div class="text-green-600 font-bold">R$79,90</div>
+              <span
+                class="bg-green-100 text-green-600 text-xs px-2 py-1 rounded-md"
+                >10% OFF</span
+              >
+              <p class="text-xs text-gray-500 mt-1">Ou em até 10x de R$ 7,90</p>
+              <button class="mt-4 bg-blue-600 text-white px-4 py-2 rounded-md">
+                Comprar
+              </button>
+            </div>
+            <div
+              class="min-w-[220px] max-w-[250px] p-4 border rounded-lg shadow-lg flex-shrink-0 flex flex-col items-center bg-white snap-start"
+            >
+              <span
+                class="bg-blue-500 text-white px-2 py-1 text-xs rounded-full"
+                >NOVO</span
+              >
+              <img
+                src="imagens/blusa2.webp"
+                alt="Produto"
+                class="w-40 h-42 my-2"
+              />
+              <h3 class="text-sm font-semibold text-center">Produto 2</h3>
+              <div class="text-gray-500 line-through">R$100,00</div>
+              <div class="text-green-600 font-bold">R$79,90</div>
+              <span
+                class="bg-green-100 text-green-600 text-xs px-2 py-1 rounded-md"
+                >10% OFF</span
+              >
+              <p class="text-xs text-gray-500 mt-1">Ou em até 10x de R$ 7,90</p>
+              <button class="mt-4 bg-blue-600 text-white px-4 py-2 rounded-md">
+                Comprar
+              </button>
+            </div>
+            <div
+              class="min-w-[220px] max-w-[250px] p-4 border rounded-lg shadow-lg flex-shrink-0 flex flex-col items-center bg-white snap-start"
+            >
+              <span
+                class="bg-blue-500 text-white px-2 py-1 text-xs rounded-full"
+                >NOVO</span
+              >
+              <img
+                src="imagens/blusa3.webp"
+                alt="Produto"
+                class="w-40 h-42 my-2"
+              />
+              <h3 class="text-sm font-semibold text-center">Produto 3</h3>
+              <div class="text-gray-500 line-through">R$100,00</div>
+              <div class="text-green-600 font-bold">R$79,90</div>
+              <span
+                class="bg-green-100 text-green-600 text-xs px-2 py-1 rounded-md"
+                >10% OFF</span
+              >
+              <p class="text-xs text-gray-500 mt-1">Ou em até 10x de R$ 7,90</p>
+              <button class="mt-4 bg-blue-600 text-white px-4 py-2 rounded-md">
+                Comprar
+              </button>
+            </div>
+            <div
+              class="min-w-[220px] max-w-[250px] p-4 border rounded-lg shadow-lg flex-shrink-0 flex flex-col items-center bg-white snap-start"
+            >
+              <span
+                class="bg-blue-500 text-white px-2 py-1 text-xs rounded-full"
+                >NOVO</span
+              >
+              <img
+                src="imagens/blusa5.webp"
+                alt="Produto"
+                class="w-40 h-42 my-2"
+              />
+              <h3 class="text-sm font-semibold text-center">Produto 5</h3>
+              <div class="text-gray-500 line-through">R$100,00</div>
+              <div class="text-green-600 font-bold">R$79,90</div>
+              <span
+                class="bg-green-100 text-green-600 text-xs px-2 py-1 rounded-md"
+                >10% OFF</span
+              >
+              <p class="text-xs text-gray-500 mt-1">Ou em até 10x de R$ 7,90</p>
+              <button class="mt-4 bg-blue-600 text-white px-4 py-2 rounded-md">
+                Comprar
+              </button>
+            </div>
+          </div>
+
+          <!-- Botão próximo -->
+          <button
+            class="absolute right-0 top-1/2 transform -translate-y-1/2 z-10 bg-white p-2 md:p-3 rounded-full shadow-md"
+            onclick="scrollCarousel(1)"
+          >
+            &#8594;
+          </button>
+        </div>
       </div>
-    </div>
+
+      <!-- Segunda Seção mais próxima -->
+      <div class="mt-8 flex items-center justify-center p-4">
+        <div
+          class="bg-white rounded-lg overflow-hidden max-w-4xl w-full flex flex-col md:flex-row"
+        >
+          <div class="md:w-1/2 flex items-center justify-center p-6">
+            <img
+              src="imagens/caneca.png"
+              alt="Caneca Avanti"
+              class="max-w-full h-auto"
+            />
+          </div>
+          <div class="md:w-1/3 bg-white p-6">
+            <h2 class="text-xl font-bold mb-4">LOREM IPSUM</h2>
+            <p class="text-gray-700 text-sm mb-4">
+              Duis consectetur metus nec lacus auctor dignissim. Mauris vitae
+              finibus dui. Mauris laoreet lacus ut eleifend viverra.
+            </p>
+            <p class="text-gray-700 text-sm mb-4">
+              Duis consectetur metus nec lacus auctor dignissim. Mauris vitae
+              finibus dui. Mauris laoreet lacus ut eleifend viverra.
+            </p>
+            <p class="text-gray-700 text-sm mb-4">
+              Duis consectetur metus nec lacus auctor dignissim. Mauris vitae
+              finibus dui. Mauris laoreet lacus ut eleifend viverra.
+            </p>
+            <p class="text-gray-700 text-sm mb-4">
+              Duis consectetur metus nec lacus auctor dignissim. Mauris vitae
+              finibus dui. Mauris laoreet lacus ut eleifend viverra.
+            </p>
+            <p class="text-gray-700 text-sm">
+              Duis consectetur metus nec lacus auctor dignissim. Mauris vitae
+              finibus dui. Mauris laoreet lacus ut eleifend viverra.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-gray-200 w-full py-12">
+        <div
+          class="flex flex-col md:flex-row items-center p-8 md:p-12 rounded-lg max-w-5xl mx-auto"
+        >
+          <!-- Esquerda: Texto e Ícones -->
+          <div class="flex-1 space-y-6">
+            <h2 class="text-gray-700 text-2xl font-semibold">LOREM IPSUM</h2>
+            <div class="space-y-6">
+              <div class="flex items-start space-x-4">
+                <div
+                  class="w-12 h-12 flex items-center justify-center bg-blue-600 text-white rounded-full"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="2"
+                    stroke="currentColor"
+                    class="w-7 h-7"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M12 2C8.134 2 5 5.134 5 9c0 4.418 4 9 7 11 3-2 7-6.582 7-11 0-3.866-3.134-7-7-7z"
+                    />
+                  </svg>
+                </div>
+                <p class="text-gray-600">
+                  Aenean massa. Cum sociis natoque penatibus et magnis dis
+                  parturient montes...
+                </p>
+              </div>
+              <div class="flex items-start space-x-4">
+                <div
+                  class="w-12 h-12 flex items-center justify-center bg-blue-600 text-white rounded-full"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="2"
+                    stroke="currentColor"
+                    class="w-7 h-7"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M12 2C8.134 2 5 5.134 5 9c0 4.418 4 9 7 11 3-2 7-6.582 7-11 0-3.866-3.134-7-7-7z"
+                    />
+                  </svg>
+                </div>
+                <p class="text-gray-600">
+                  Aenean massa. Cum sociis natoque penatibus et magnis dis
+                  parturient montes...
+                </p>
+              </div>
+              <div class="flex items-start space-x-4">
+                <div
+                  class="w-12 h-12 flex items-center justify-center bg-blue-600 text-white rounded-full"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="2"
+                    stroke="currentColor"
+                    class="w-7 h-7"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M12 2C8.134 2 5 5.134 5 9c0 4.418 4 9 7 11 3-2 7-6.582 7-11 0-3.866-3.134-7-7-7z"
+                    />
+                  </svg>
+                </div>
+                <p class="text-gray-600">
+                  Aenean massa. Cum sociis natoque penatibus et magnis dis
+                  parturient montes...
+                </p>
+              </div>
+            </div>
+          </div>
+          <!-- Direita: Imagem -->
+          <div class="flex-1 flex justify-center mt-6 md:mt-0">
+            <img
+              src="imagens/caneca2.png"
+              alt="Caneca Avanti"
+              class="max-w-sm rounded-lg shadow-lg"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-8 flex items-center justify-center p-4">
+        <div
+          class="bg-white rounded-lg overflow-hidden max-w-4xl w-full flex flex-col md:flex-row"
+        >
+          <div class="md:w-1/2 flex items-center justify-center p-6">
+            <img
+              src="imagens/caneca.png"
+              alt="Caneca Avanti"
+              class="max-w-full h-auto"
+            />
+          </div>
+          <div class="md:w-1/3 bg-white p-6">
+            <h2 class="text-xl font-bold mb-4">LOREM IPSUM</h2>
+            <p class="text-gray-700 text-sm mb-4">
+              Duis consectetur metus nec lacus auctor dignissim. Mauris vitae
+              finibus dui. Mauris laoreet lacus ut eleifend viverra.
+            </p>
+            <p class="text-gray-700 text-sm mb-4">
+              Duis consectetur metus nec lacus auctor dignissim. Mauris vitae
+              finibus dui. Mauris laoreet lacus ut eleifend viverra.
+            </p>
+            <p class="text-gray-700 text-sm mb-4">
+              Duis consectetur metus nec lacus auctor dignissim. Mauris vitae
+              finibus dui. Mauris laoreet lacus ut eleifend viverra.
+            </p>
+            <p class="text-gray-700 text-sm mb-4">
+              Duis consectetur metus nec lacus auctor dignissim. Mauris vitae
+              finibus dui. Mauris laoreet lacus ut eleifend viverra.
+            </p>
+            <p class="text-gray-700 text-sm">
+              Duis consectetur metus nec lacus auctor dignissim. Mauris vitae
+              finibus dui. Mauris laoreet lacus ut eleifend viverra.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="w-full max-w-6xl mx-auto p-4">
+        <h2 class="text-2xl font-bold mb-4">Lançamentos</h2>
+
+        <div class="relative">
+          <!-- Botão anterior -->
+          <button
+            class="absolute left-0 top-1/2 transform -translate-y-1/2 z-10 bg-white p-2 md:p-3 rounded-full shadow-md"
+            onclick="scrollCarousel(-1)"
+          >
+            &#8592;
+          </button>
+          <!-- Container de produtos -->
+          <div
+            id="carousel"
+            class="flex gap-4 overflow-x-auto scroll-smooth px-10 md:px-16 scrollbar-hide touch-pan-x snap-x snap-mandatory"
+          >
+            <!-- Card de produto (repita quantos quiser) -->
+            <div
+              class="min-w-[220px] max-w-[250px] p-4 border rounded-lg shadow-lg flex-shrink-0 flex flex-col items-center bg-white snap-start"
+            >
+              <span
+                class="bg-blue-500 text-white px-2 py-1 text-xs rounded-full"
+                >NOVO</span
+              >
+              <img
+                src="imagens/blusa1.webp"
+                alt="Produto"
+                class="w-40 h-42 my-2"
+              />
+              <h3 class="text-sm font-semibold text-center">Produto 1</h3>
+              <div class="text-gray-500 line-through">R$100,00</div>
+              <div class="text-green-600 font-bold">R$79,90</div>
+              <span
+                class="bg-green-100 text-green-600 text-xs px-2 py-1 rounded-md"
+                >10% OFF</span
+              >
+              <p class="text-xs text-gray-500 mt-1">Ou em até 10x de R$ 7,90</p>
+              <button class="mt-4 bg-blue-600 text-white px-4 py-2 rounded-md">
+                Comprar
+              </button>
+            </div>
+            <div
+              class="min-w-[220px] max-w-[250px] p-4 border rounded-lg shadow-lg flex-shrink-0 flex flex-col items-center bg-white snap-start"
+            >
+              <span
+                class="bg-blue-500 text-white px-2 py-1 text-xs rounded-full"
+                >NOVO</span
+              >
+              <img
+                src="imagens/blusa2.webp"
+                alt="Produto"
+                class="w-40 h-42 my-2"
+              />
+              <h3 class="text-sm font-semibold text-center">Produto 2</h3>
+              <div class="text-gray-500 line-through">R$100,00</div>
+              <div class="text-green-600 font-bold">R$79,90</div>
+              <span
+                class="bg-green-100 text-green-600 text-xs px-2 py-1 rounded-md"
+                >10% OFF</span
+              >
+              <p class="text-xs text-gray-500 mt-1">Ou em até 10x de R$ 7,90</p>
+              <button class="mt-4 bg-blue-600 text-white px-4 py-2 rounded-md">
+                Comprar
+              </button>
+            </div>
+            <div
+              class="min-w-[220px] max-w-[250px] p-4 border rounded-lg shadow-lg flex-shrink-0 flex flex-col items-center bg-white snap-start"
+            >
+              <span
+                class="bg-blue-500 text-white px-2 py-1 text-xs rounded-full"
+                >NOVO</span
+              >
+              <img
+                src="imagens/blusa3.webp"
+                alt="Produto"
+                class="w-40 h-42 my-2"
+              />
+              <h3 class="text-sm font-semibold text-center">Produto 3</h3>
+              <div class="text-gray-500 line-through">R$100,00</div>
+              <div class="text-green-600 font-bold">R$79,90</div>
+              <span
+                class="bg-green-100 text-green-600 text-xs px-2 py-1 rounded-md"
+                >10% OFF</span
+              >
+              <p class="text-xs text-gray-500 mt-1">Ou em até 10x de R$ 7,90</p>
+              <button class="mt-4 bg-blue-600 text-white px-4 py-2 rounded-md">
+                Comprar
+              </button>
+            </div>
+            <div
+              class="min-w-[220px] max-w-[250px] p-4 border rounded-lg shadow-lg flex-shrink-0 flex flex-col items-center bg-white snap-start"
+            >
+              <span
+                class="bg-blue-500 text-white px-2 py-1 text-xs rounded-full"
+                >NOVO</span
+              >
+              <img
+                src="imagens/blusa4.webp"
+                alt="Produto"
+                class="w-40 h-42 my-2"
+              />
+              <h3 class="text-sm font-semibold text-center">Produto 4</h3>
+              <div class="text-gray-500 line-through">R$100,00</div>
+              <div class="text-green-600 font-bold">R$79,90</div>
+              <span
+                class="bg-green-100 text-green-600 text-xs px-2 py-1 rounded-md"
+                >10% OFF</span
+              >
+              <p class="text-xs text-gray-500 mt-1">Ou em até 10x de R$ 7,90</p>
+              <button class="mt-4 bg-blue-600 text-white px-4 py-2 rounded-md">
+                Comprar
+              </button>
+            </div>
+            <div
+              class="min-w-[220px] max-w-[250px] p-4 border rounded-lg shadow-lg flex-shrink-0 flex flex-col items-center bg-white snap-start"
+            >
+              <span
+                class="bg-blue-500 text-white px-2 py-1 text-xs rounded-full"
+                >NOVO</span
+              >
+              <img
+                src="imagens/blusa5.webp"
+                alt="Produto"
+                class="w-40 h-42 my-2"
+              />
+              <h3 class="text-sm font-semibold text-center">Produto 5</h3>
+              <div class="text-gray-500 line-through">R$100,00</div>
+              <div class="text-green-600 font-bold">R$79,90</div>
+              <span
+                class="bg-green-100 text-green-600 text-xs px-2 py-1 rounded-md"
+                >10% OFF</span
+              >
+              <p class="text-xs text-gray-500 mt-1">Ou em até 10x de R$ 7,90</p>
+              <button class="mt-4 bg-blue-600 text-white px-4 py-2 rounded-md">
+                Comprar
+              </button>
+            </div>
+            <div
+              class="min-w-[220px] max-w-[250px] p-4 border rounded-lg shadow-lg flex-shrink-0 flex flex-col items-center bg-white snap-start"
+            >
+              <span
+                class="bg-blue-500 text-white px-2 py-1 text-xs rounded-full"
+                >NOVO</span
+              >
+              <img
+                src="imagens/blusa1.webp"
+                alt="Produto"
+                class="w-40 h-42 my-2"
+              />
+              <h3 class="text-sm font-semibold text-center">Produto 1</h3>
+              <div class="text-gray-500 line-through">R$100,00</div>
+              <div class="text-green-600 font-bold">R$79,90</div>
+              <span
+                class="bg-green-100 text-green-600 text-xs px-2 py-1 rounded-md"
+                >10% OFF</span
+              >
+              <p class="text-xs text-gray-500 mt-1">Ou em até 10x de R$ 7,90</p>
+              <button class="mt-4 bg-blue-600 text-white px-4 py-2 rounded-md">
+                Comprar
+              </button>
+            </div>
+            <div
+              class="min-w-[220px] max-w-[250px] p-4 border rounded-lg shadow-lg flex-shrink-0 flex flex-col items-center bg-white snap-start"
+            >
+              <span
+                class="bg-blue-500 text-white px-2 py-1 text-xs rounded-full"
+                >NOVO</span
+              >
+              <img
+                src="imagens/blusa2.webp"
+                alt="Produto"
+                class="w-40 h-42 my-2"
+              />
+              <h3 class="text-sm font-semibold text-center">Produto 2</h3>
+              <div class="text-gray-500 line-through">R$100,00</div>
+              <div class="text-green-600 font-bold">R$79,90</div>
+              <span
+                class="bg-green-100 text-green-600 text-xs px-2 py-1 rounded-md"
+                >10% OFF</span
+              >
+              <p class="text-xs text-gray-500 mt-1">Ou em até 10x de R$ 7,90</p>
+              <button class="mt-4 bg-blue-600 text-white px-4 py-2 rounded-md">
+                Comprar
+              </button>
+            </div>
+            <div
+              class="min-w-[220px] max-w-[250px] p-4 border rounded-lg shadow-lg flex-shrink-0 flex flex-col items-center bg-white snap-start"
+            >
+              <span
+                class="bg-blue-500 text-white px-2 py-1 text-xs rounded-full"
+                >NOVO</span
+              >
+              <img
+                src="imagens/blusa3.webp"
+                alt="Produto"
+                class="w-40 h-42 my-2"
+              />
+              <h3 class="text-sm font-semibold text-center">Produto 3</h3>
+              <div class="text-gray-500 line-through">R$100,00</div>
+              <div class="text-green-600 font-bold">R$79,90</div>
+              <span
+                class="bg-green-100 text-green-600 text-xs px-2 py-1 rounded-md"
+                >10% OFF</span
+              >
+              <p class="text-xs text-gray-500 mt-1">Ou em até 10x de R$ 7,90</p>
+              <button class="mt-4 bg-blue-600 text-white px-4 py-2 rounded-md">
+                Comprar
+              </button>
+            </div>
+            <div
+              class="min-w-[220px] max-w-[250px] p-4 border rounded-lg shadow-lg flex-shrink-0 flex flex-col items-center bg-white snap-start"
+            >
+              <span
+                class="bg-blue-500 text-white px-2 py-1 text-xs rounded-full"
+                >NOVO</span
+              >
+              <img
+                src="imagens/blusa5.webp"
+                alt="Produto"
+                class="w-40 h-42 my-2"
+              />
+              <h3 class="text-sm font-semibold text-center">Produto 5</h3>
+              <div class="text-gray-500 line-through">R$100,00</div>
+              <div class="text-green-600 font-bold">R$79,90</div>
+              <span
+                class="bg-green-100 text-green-600 text-xs px-2 py-1 rounded-md"
+                >10% OFF</span
+              >
+              <p class="text-xs text-gray-500 mt-1">Ou em até 10x de R$ 7,90</p>
+              <button class="mt-4 bg-blue-600 text-white px-4 py-2 rounded-md">
+                Comprar
+              </button>
+            </div>
+          </div>
+          <!-- Botão próximo -->
+          <button
+            class="absolute right-0 top-1/2 transform -translate-y-1/2 z-10 bg-white p-2 md:p-3 rounded-full shadow-md"
+            onclick="scrollCarousel(1)"
+          >
+            &#8594;
+          </button>
+        </div>
+      </div>
+
+      <div class="relative w-full h-[40vh] md:h-[50vh] lg:h-[60vh] mt-10">
+        <img
+          src="imagens/fundoavanti2.png"
+          alt="Imagem de fundo"
+          class="w-full h-full object-cover"
+        />
+        <div
+          class="absolute inset-x-0 top-[46%] transform -translate-y-1/2 text-white text-center px-6 py-3 text-lg font-semibold w-full"
+        >
+          Entre em contato conosco e verifique a disponibilidade para sua
+          região!
+        </div>
+      </div>
+
+      <div class="flex justify-center mt-12">
+        <div
+          class="w-full max-w-4xl p-6 bg-gray-200 rounded-lg shadow-md flex flex-col items-center"
+        >
+          <h2 class="text-center text-lg font-semibold mb-4">
+            Cadastre-se na nossa
+            <a href="#" class="text-blue-600">newsletter</a>
+          </h2>
+          <form
+            class="flex flex-col items-center md:flex-row md:justify-center gap-4 w-full"
+          >
+            <input
+              type="text"
+              placeholder="Digite seu nome"
+              class="w-full md:w-auto px-4 py-2 border rounded-lg outline-none"
+            />
+            <input
+              type="email"
+              placeholder="Digite seu e-mail"
+              class="w-full md:w-auto px-4 py-2 border rounded-lg outline-none"
+            />
+            <div class="flex items-center">
+              <input type="checkbox" id="privacy" class="mr-2" />
+              <label for="privacy" class="text-sm text-gray-600">
+                Estou de acordo com a
+                <a href="#" class="text-gray-800 underline"
+                  >Política de Privacidade</a
+                >
+              </label>
+            </div>
+            <button
+              type="submit"
+              class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
+            >
+              Cadastrar
+            </button>
+          </form>
+        </div>
+      </div>
+    </main>
 
     <footer class="bg-gray-100 text-gray-800 text-sm mt-10">
       <div class="max-w-7xl mx-auto px-6 py-10">
