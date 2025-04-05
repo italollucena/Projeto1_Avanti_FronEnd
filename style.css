@@ -1,0 +1,63 @@
+header {
+  position: relative;
+  z-index: 50;
+}
+
+/* Estilo geral do contêiner */
+.container {
+  width: 66.67%; /* Define a largura do contêiner */
+  padding: 16px; /* Espaçamento interno */
+  margin: 0 auto; /* Centraliza o contêiner */
+}
+
+/* Estilo do contêiner das categorias */
+.category-container {
+  display: flex; /* Define um contêiner flexível */
+  flex-wrap: wrap; /* Permite que os itens se movam para a próxima linha se não houver espaço */
+}
+
+/* Estilo de cada categoria */
+.category-content {
+  flex: 1 1 30%; /* Cada categoria ocupa 30% da largura do contêiner */
+  margin: 10px; /* Espaçamento entre as categorias */
+  border: 1px solid #ccc; /* Borda ao redor de cada categoria */
+  border-radius: 5px; /* Bordas arredondadas */
+  padding: 10px; /* Espaçamento interno */
+  background-color: #f9f9f9; /* Cor de fundo */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra leve */
+}
+
+/* Estilo do título da categoria */
+.category-content h3 {
+  font-weight: bold; /* Negrito */
+  color: #1d4ed8; /* Cor azul */
+  margin-bottom: 8px; /* Espaçamento abaixo do título */
+}
+
+/* Estilo da lista de categorias */
+.category-content ul {
+  list-style-type: none; /* Remove os marcadores da lista */
+  padding: 0; /* Remove o preenchimento padrão */
+}
+
+/* Estilo de cada item da lista */
+.category-content li {
+  padding: 5px; /* Espaçamento interno */
+  border-bottom: 1px solid #ddd; /* Linha separadora entre os itens */
+}
+
+/* Remove a linha inferior do último item */
+.category-content li:last-child {
+  border-bottom: none; /* Remove a borda do último item */
+}
+
+/* Estilos adicionais para melhorar a responsividade */
+@media (max-width: 768px) {
+  #menu {
+    flex-direction: column;
+    width: 100%;
+  }
+  #menu li {
+    width: 100%;
+  }
+}
