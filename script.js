@@ -1,41 +1,50 @@
-function toggleMenu(event) {
-  const menu = event.currentTarget.nextElementSibling;
-  menu.classList.toggle("hidden");
-}
-
-function showCategory(categoryId) {
-  const contents = document.querySelectorAll(".category-content");
-  contents.forEach((content) => {
-    content.classList.add("hidden");
-  });
-  document.getElementById(categoryId).classList.remove("hidden");
-}
-
-function toggleMenu(event) {
-  const menu = document.getElementById("dropdownMenu");
-  menu.classList.toggle("hidden");
-  event.stopPropagation(); // Impede que o evento de clique se propague
-}
-
-// Fecha o menu ao clicar fora dele
-document.addEventListener("click", function (event) {
-  const menu = document.getElementById("dropdownMenu");
+document.addEventListener("DOMContentLoaded", function () {
   const toggleButton = document.querySelector(
     ".text-xl.font-bold.text-blue-600"
   );
+  const dropdownMenu = document.getElementById("dropdownMenu");
 
-  // Verifica se o clique foi fora do menu e do botão
-  if (!menu.contains(event.target) && !toggleButton.contains(event.target)) {
-    menu.classList.add("hidden");
+  // Verifica se os elementos existem
+  if (toggleButton && dropdownMenu) {
+    toggleButton.addEventListener("click", function (event) {
+      dropdownMenu.classList.toggle("hidden");
+      event.stopPropagation(); // Evita que o clique se propague e feche imediatamente o menu
+    });
+
+    // Fecha o menu ao clicar fora dele
+    document.addEventListener("click", function (event) {
+      if (
+        !dropdownMenu.contains(event.target) &&
+        !toggleButton.contains(event.target)
+      ) {
+        dropdownMenu.classList.add("hidden");
+      }
+    });
   }
-});
-document.querySelectorAll("[data-category]").forEach((item) => {
-  item.addEventListener("mouseenter", function () {
-    document
-      .querySelectorAll(".category-content")
-      .forEach((el) => el.classList.add("hidden"));
-    document
-      .getElementById(this.getAttribute("data-category"))
-      .classList.remove("hidden");
+
+  // Mostrar conteúdo da categoria ao passar o mouse
+  document.querySelectorAll("[data-category]").forEach((item) => {
+    item.addEventListener("mouseenter", function () {
+      document.querySelectorAll(".category-content").forEach((el) => {
+        el.classList.add("hidden");
+      });
+
+      const targetId = this.getAttribute("data-category");
+      const targetElement = document.getElementById(targetId);
+      if (targetElement) {
+        targetElement.classList.remove("hidden");
+      }
+    });
   });
 });
+
+// Função global do carrossel — definida fora do DOMContentLoaded para garantir visibilidade global
+window.scrollCarousel = function (direction) {
+  const carousel = document.getElementById("carousel");
+  if (!carousel) return;
+  const scrollAmount = carousel.offsetWidth * 0.8; // rolagem proporcional
+  carousel.scrollBy({
+    left: direction * scrollAmount,
+    behavior: "smooth",
+  });
+};
