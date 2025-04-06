@@ -1,41 +1,80 @@
-function toggleMenu(event) {
-  const menu = event.currentTarget.nextElementSibling;
-  menu.classList.toggle("hidden");
-}
+document.addEventListener("DOMContentLoaded", function () {
+  const toggleButton = document.getElementById("categoryToggle");
+  const dropdownMenu = document.getElementById("dropdownMenu");
 
-function showCategory(categoryId) {
-  const contents = document.querySelectorAll(".category-content");
-  contents.forEach((content) => {
-    content.classList.add("hidden");
-  });
-  document.getElementById(categoryId).classList.remove("hidden");
-}
+  if (!toggleButton || !dropdownMenu) return;
 
-function toggleMenu(event) {
-  const menu = document.getElementById("dropdownMenu");
-  menu.classList.toggle("hidden");
-  event.stopPropagation(); // Impede que o evento de clique se propague
-}
+  const isMobile = () => window.innerWidth < 768;
 
-// Fecha o menu ao clicar fora dele
-document.addEventListener("click", function (event) {
-  const menu = document.getElementById("dropdownMenu");
-  const toggleButton = document.querySelector(
-    ".text-xl.font-bold.text-blue-600"
-  );
-
-  // Verifica se o clique foi fora do menu e do botão
-  if (!menu.contains(event.target) && !toggleButton.contains(event.target)) {
-    menu.classList.add("hidden");
+  function showMenu() {
+    dropdownMenu.classList.remove("hidden");
   }
-});
-document.querySelectorAll("[data-category]").forEach((item) => {
-  item.addEventListener("mouseenter", function () {
-    document
-      .querySelectorAll(".category-content")
-      .forEach((el) => el.classList.add("hidden"));
-    document
-      .getElementById(this.getAttribute("data-category"))
-      .classList.remove("hidden");
+
+  function hideMenu() {
+    dropdownMenu.classList.add("hidden");
+  }
+
+  function toggleMenu() {
+    dropdownMenu.classList.toggle("hidden");
+  }
+
+  toggleButton.addEventListener("click", function (e) {
+    e.stopPropagation();
+    toggleMenu();
   });
+
+  document.addEventListener("click", function (e) {
+    if (!dropdownMenu.contains(e.target) && !toggleButton.contains(e.target)) {
+      hideMenu();
+    }
+  });
+
+  function handleHoverEvents() {
+    toggleButton.addEventListener("mouseenter", () => {
+      if (!isMobile()) showMenu();
+    });
+
+    toggleButton.addEventListener("mouseleave", () => {
+      if (!isMobile()) {
+        setTimeout(() => {
+          if (
+            !dropdownMenu.matches(":hover") &&
+            !toggleButton.matches(":hover")
+          ) {
+            hideMenu();
+          }
+        }, 200);
+      }
+    });
+
+    dropdownMenu.addEventListener("mouseenter", () => {
+      if (!isMobile()) showMenu();
+    });
+
+    dropdownMenu.addEventListener("mouseleave", () => {
+      if (!isMobile()) hideMenu();
+    });
+  }
+
+  handleHoverEvents();
+
+  document.querySelectorAll("[data-category]").forEach((item) => {
+    const showCategory = function () {
+      document
+        .querySelectorAll(".category-content")
+        .forEach((el) => el.classList.add("hidden"));
+
+      const targetId = this.getAttribute("data-category");
+      const target = document.getElementById(targetId);
+      if (target) target.classList.remove("hidden");
+    };
+
+    if (isMobile()) {
+      item.addEventListener("click", showCategory);
+    } else {
+      item.addEventListener("mouseenter", showCategory);
+    }
+  });
+
+  window.addEventListener("resize", hideMenu);
 });
