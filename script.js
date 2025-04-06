@@ -1,80 +1,86 @@
 document.addEventListener("DOMContentLoaded", function () {
-  const toggleButton = document.getElementById("categoryToggle");
+  const toggleButton = document.getElementById("menuToggle");
   const dropdownMenu = document.getElementById("dropdownMenu");
 
-  if (!toggleButton || !dropdownMenu) return;
-
-  const isMobile = () => window.innerWidth < 768;
-
-  function showMenu() {
-    dropdownMenu.classList.remove("hidden");
-  }
-
-  function hideMenu() {
-    dropdownMenu.classList.add("hidden");
-  }
-
-  function toggleMenu() {
-    dropdownMenu.classList.toggle("hidden");
-  }
-
-  toggleButton.addEventListener("click", function (e) {
-    e.stopPropagation();
-    toggleMenu();
-  });
-
-  document.addEventListener("click", function (e) {
-    if (!dropdownMenu.contains(e.target) && !toggleButton.contains(e.target)) {
-      hideMenu();
-    }
-  });
-
-  function handleHoverEvents() {
-    toggleButton.addEventListener("mouseenter", () => {
-      if (!isMobile()) showMenu();
-    });
-
-    toggleButton.addEventListener("mouseleave", () => {
-      if (!isMobile()) {
-        setTimeout(() => {
-          if (
-            !dropdownMenu.matches(":hover") &&
-            !toggleButton.matches(":hover")
-          ) {
-            hideMenu();
-          }
-        }, 200);
+  // Alterna o menu ao clicar no botão (mobile)
+  if (toggleButton && dropdownMenu) {
+    toggleButton.addEventListener("click", function (event) {
+      event.stopPropagation(); // Impede fechamento imediato
+      if (window.innerWidth < 768) {
+        dropdownMenu.classList.toggle("hidden");
       }
     });
 
-    dropdownMenu.addEventListener("mouseenter", () => {
-      if (!isMobile()) showMenu();
+    // Fecha o menu ao clicar fora (mobile e desktop)
+    document.addEventListener("click", function (event) {
+      if (
+        !dropdownMenu.contains(event.target) &&
+        !toggleButton.contains(event.target)
+      ) {
+        dropdownMenu.classList.add("hidden");
+      }
     });
 
-    dropdownMenu.addEventListener("mouseleave", () => {
-      if (!isMobile()) hideMenu();
+    // Exibe o menu ao passar o mouse no botão (desktop)
+    toggleButton.addEventListener("mouseenter", function () {
+      if (window.innerWidth >= 768) {
+        dropdownMenu.classList.remove("hidden");
+      }
+    });
+
+    // Oculta o menu ao sair com o mouse (desktop)
+    dropdownMenu.addEventListener("mouseleave", function () {
+      if (window.innerWidth >= 768) {
+        dropdownMenu.classList.add("hidden");
+      }
     });
   }
 
-  handleHoverEvents();
-
+  // Exibe categorias ao passar o mouse no desktop ou clicar no mobile
   document.querySelectorAll("[data-category]").forEach((item) => {
     const showCategory = function () {
-      document
-        .querySelectorAll(".category-content")
-        .forEach((el) => el.classList.add("hidden"));
+      document.querySelectorAll(".category-content").forEach((el) => {
+        el.classList.add("hidden");
+      });
 
       const targetId = this.getAttribute("data-category");
-      const target = document.getElementById(targetId);
-      if (target) target.classList.remove("hidden");
+      const targetElement = document.getElementById(targetId);
+      if (targetElement) {
+        targetElement.classList.remove("hidden");
+      }
     };
 
-    if (isMobile()) {
-      item.addEventListener("click", showCategory);
-    } else {
-      item.addEventListener("mouseenter", showCategory);
-    }
+    item.addEventListener("mouseenter", function () {
+      if (window.innerWidth >= 768) {
+        showCategory.call(this);
+      }
+    });
+
+    item.addEventListener("click", function () {
+      if (window.innerWidth < 768) {
+        showCategory.call(this);
+      }
+    });
   });
 
-  window.addEventListener("resize", hideMenu);
+  // Exibe a primeira categoria por padrão
+  const defaultCategory = document.querySelector("[data-category]");
+  if (defaultCategory) {
+    const firstId = defaultCategory.getAttribute("data-category");
+    const firstEl = document.getElementById(firstId);
+    if (firstEl) {
+      firstEl.classList.remove("hidden");
+    }
+  }
 });
+
+// Carrossel
+window.scrollCarousel = function (direction) {
+  const carousel = document.getElementById("carousel");
+  if (!carousel) return;
+  const scrollAmount = carousel.offsetWidth * 0.8;
+  carousel.scrollBy({
+    left: direction * scrollAmount,
+    behavior: "smooth",
+  });
+};
