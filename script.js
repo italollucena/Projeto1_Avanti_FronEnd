@@ -36,8 +36,9 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  // Exibe categorias ao passar o mouse no desktop ou clicar no mobile
-  document.querySelectorAll("[data-category]").forEach((item) => {
+  // Manipulação das categorias (hover no desktop / clique no mobile)
+  const categoryItems = document.querySelectorAll("[data-category]");
+  categoryItems.forEach((item) => {
     const showCategory = function () {
       document.querySelectorAll(".category-content").forEach((el) => {
         el.classList.add("hidden");
@@ -50,12 +51,14 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     };
 
+    // Hover (apenas desktop)
     item.addEventListener("mouseenter", function () {
       if (window.innerWidth >= 768) {
         showCategory.call(this);
       }
     });
 
+    // Clique (apenas mobile)
     item.addEventListener("click", function () {
       if (window.innerWidth < 768) {
         showCategory.call(this);
@@ -74,10 +77,11 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 });
 
-// Carrossel
+// Função de rolagem do carrossel
 window.scrollCarousel = function (direction) {
   const carousel = document.getElementById("carousel");
   if (!carousel) return;
+
   const scrollAmount = carousel.offsetWidth * 0.8;
   carousel.scrollBy({
     left: direction * scrollAmount,
