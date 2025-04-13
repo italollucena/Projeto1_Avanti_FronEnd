@@ -8,6 +8,14 @@ header {
   z-index: 50;
 }
 
+.hidden {
+  display: none;
+}
+
+.custom-margin {
+  margin-right: 40px; /* Ajuste o valor conforme necessário */
+}
+
 #carousel .item {
   flex: 0 0 auto;
   width: 200px;
@@ -84,6 +92,13 @@ header {
 /* Remove a linha inferior do último item */
 .category-content li:last-child {
   border-bottom: none;
+}
+
+/* Estilo do resultado da busca */
+#searchResult {
+  margin-top: 10px; /* Espaçamento acima do resultado */
+  color: #4a5568; /* Cor do texto */
+  font-size: 1rem; /* Tamanho da fonte */
 }
 
 /* Responsividade para telas menores */

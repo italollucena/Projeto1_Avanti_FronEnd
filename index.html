@@ -2,7 +2,11 @@
 <html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
+    />
+
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
@@ -23,8 +27,10 @@
       <div
         class="bg-blue-500 text-white text-center py-1 fixed top-0 left-0 right-0 z-50 text-xs md:text-sm tracking-tight"
       >
-        Ganhe <span class="font-bold">R$10,00</span> de desconto no seu primeiro
-        pedido. Use <span class="font-bold">DESCONTO10</span>
+        Ganhe
+        <span class="bg-purple-800 text-white px-1">R$10,00</span> de desconto
+        no seu primeiro pedido. Utilize o cupom
+        <span class="font-bold">DESCONTO10</span>
       </div>
 
       <!-- Container principal -->
@@ -37,15 +43,16 @@
           <button class="text-2xl">&#9776;</button>
 
           <!-- Logo centralizada -->
-          <img src="imagens/logo-black.svg" alt="Logo" class="h-8" />
+          <img src="imagens/logo-black.svg" alt="Logo" class="h-10" />
 
           <!-- Carrinho com contador -->
           <div class="relative text-2xl">
-            🛒
-            <span
-              class="absolute -top-1 -right-2 bg-blue-600 text-white text-xs w-4 h-4 rounded-full flex items-center justify-center"
-            >
-              2
+            <span class="text-xl relative">
+              🛒<span
+                class="absolute -top-2 -right-2 bg-blue-600 text-white text-xs w-5 h-4 rounded-full flex items-center justify-center cart-count"
+              >
+                0
+              </span>
             </span>
           </div>
         </div>
@@ -62,7 +69,10 @@
               placeholder="Digite aqui o que você procura"
               class="w-full border border-gray-300 rounded-md py-1.5 px-3 text-sm"
             />
-            <button class="absolute right-3 top-2 text-gray-500">
+            <button
+              id="searchButton"
+              class="absolute right-3 top-2 text-gray-500"
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 class="w-4 h-4"
@@ -73,6 +83,8 @@
                 <line x1="21" y1="21" x2="16.65" y2="16.65" />
               </svg>
             </button>
+            <!-- Elemento para exibir a mensagem -->
+            <div id="searchResult" class="mt-2 text-gray-700"></div>
           </div>
 
           <!-- Usuário e carrinho -->
@@ -85,10 +97,11 @@
               </div>
             </div>
             <span class="text-xl relative">
-              🛒<sup
-                class="absolute -top-1 -right-2 bg-blue-600 text-white text-xs w-4 h-4 rounded-full flex items-center justify-center"
-                >2</sup
+              🛒<span
+                class="absolute -top-2 -right-2 bg-blue-600 text-white text-xs w-5 h-4 rounded-full flex items-center justify-center cart-count"
               >
+                0
+              </span>
             </span>
           </div>
         </div>
@@ -159,7 +172,7 @@
       <!-- Mega Menu (dropdown) -->
       <div
         id="dropdownMenu"
-        class="absolute left-0 top-full mt-2 z-10 hidden group-hover:flex w-[800px] bg-white shadow-lg border border-gray-200 transition-all duration-300"
+        class="absolute left-0 top-full mt-2 z-10 hidden flex group-hover:flex w-full max-w-6xl bg-white shadow-lg border border-gray-200 transition-all duration-300"
       >
         <!-- Lista de Departamentos -->
         <div class="w-1/4 max-h-96 overflow-y-auto border-r bg-gray-50 p-4">
@@ -227,295 +240,510 @@
           </ul>
         </div>
 
-        <!-- Categorias (sempre visíveis no layout) -->
-        <div
-          id="dep-1"
-          class="category-content bg-white p-4 shadow-none border-none ring-0 w-3/4"
-        >
-          <h3 class="font-bold text-blue-600 mb-4">Departamento 1</h3>
-          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8">
-            <ul class="space-y-1">
-              <li class="py-1">Categoria</li>
-              <li class="py-1">Categoria</li>
-              <li class="py-1">Categoria</li>
-              <li class="py-1">Categoria</li>
-              <li class="py-1">Categoria</li>
-            </ul>
-            <ul class="space-y-1">
-              <li class="py-1">Categoria</li>
-              <li class="py-1">Categoria</li>
-              <li class="py-1">Categoria</li>
-              <li class="py-1">Categoria</li>
-              <li class="py-1">Categoria</li>
-            </ul>
-            <ul class="space-y-1">
-              <li class="py-1">Categoria</li>
-              <li class="py-1">Categoria</li>
-              <li class="py-1">Categoria</li>
-              <li class="py-1">Categoria</li>
-              <li class="py-1">Categoria</li>
-            </ul>
+        <div class="flex justify-end items-start pl-8">
+          <!-- Categorias (sempre visíveis no layout) -->
+          <div
+            id="dep-1"
+            class="category-content bg-white p-4 shadow-none border-none ring-0 w-3/4"
+          >
+            <div
+              class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-28"
+            >
+              <ul class="space-y-1">
+                <li class="font-bold text-blue-600 py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+              </ul>
+              <ul class="space-y-1">
+                <li class="font-bold text-blue-600 py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+              </ul>
+              <ul class="space-y-1">
+                <li class="font-bold text-blue-600 py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+              </ul>
+              <ul class="space-y-1">
+                <li class="font-bold text-blue-600 py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+              </ul>
+            </div>
           </div>
-        </div>
-        <div
-          id="dep-2"
-          class="category-content hidden bg-white p-4 shadow-none border-none ring-0 w-3/4"
-        >
-          <h3 class="font-bold text-blue-600 mb-4">Departamento 2</h3>
-          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8">
-            <ul class="space-y-1">
-              <li class="py-1">Categoria</li>
-              <li class="py-1">Categoria</li>
-              <li class="py-1">Categoria</li>
-              <li class="py-1">Categoria</li>
-              <li class="py-1">Categoria</li>
-            </ul>
-            <ul class="space-y-1">
-              <li class="py-1">Categoria</li>
-              <li class="py-1">Categoria</li>
-              <li class="py-1">Categoria</li>
-              <li class="py-1">Categoria</li>
-              <li class="py-1">Categoria</li>
-            </ul>
-            <ul class="space-y-1">
-              <li class="py-1">Categoria</li>
-              <li class="py-1">Categoria</li>
-              <li class="py-1">Categoria</li>
-              <li class="py-1">Categoria</li>
-              <li class="py-1">Categoria</li>
-            </ul>
+
+          <div
+            id="dep-2"
+            class="category-content hidden bg-white p-4 shadow-none border-none ring-0 w-3/4"
+          >
+            <div
+              class="grid grid-cols-1 sm:grid-c ols-2 lg:grid-cols-4 gap-x-28"
+            >
+              <ul class="space-y-1">
+                <li class="font-bold text-blue-600 py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+              </ul>
+              <ul class="space-y-1">
+                <li class="font-bold text-blue-600 py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+              </ul>
+              <ul class="space-y-1">
+                <li class="font-bold text-blue-600 py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+              </ul>
+              <ul class="space-y-1">
+                <li class="font-bold text-blue-600 py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+              </ul>
+            </div>
           </div>
-        </div>
-        <div
-          id="dep-3"
-          class="category-content hidden bg-white p-4 shadow-none border-none ring-0 w-3/4"
-        >
-          <h3 class="font-bold text-blue-600 mb-4">Departamento 3</h3>
-          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8">
-            <ul class="space-y-1">
-              <li class="py-1">Categoria</li>
-              <li class="py-1">Categoria</li>
-              <li class="py-1">Categoria</li>
-              <li class="py-1">Categoria</li>
-              <li class="py-1">Categoria</li>
-            </ul>
-            <ul class="space-y-1">
-              <li class="py-1">Categoria</li>
-              <li class="py-1">Categoria</li>
-              <li class="py-1">Categoria</li>
-              <li class="py-1">Categoria</li>
-              <li class="py-1">Categoria</li>
-            </ul>
-            <ul class="space-y-1">
-              <li class="py-1">Categoria</li>
-              <li class="py-1">Categoria</li>
-              <li class="py-1">Categoria</li>
-              <li class="py-1">Categoria</li>
-              <li class="py-1">Categoria</li>
-            </ul>
+          <div
+            id="dep-3"
+            class="category-content hidden bg-white p-4 shadow-none border-none ring-0 w-3/4"
+          >
+            <div
+              class="grid grid-cols-1 sm:grid-c ols-2 lg:grid-cols-4 gap-x-28"
+            >
+              <ul class="space-y-1">
+                <li class="font-bold text-blue-600 py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+              </ul>
+              <ul class="space-y-1">
+                <li class="font-bold text-blue-600 py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+              </ul>
+              <ul class="space-y-1">
+                <li class="font-bold text-blue-600 py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+              </ul>
+              <ul class="space-y-1">
+                <li class="font-bold text-blue-600 py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+              </ul>
+            </div>
           </div>
-        </div>
-        <div
-          id="dep-4"
-          class="category-content hidden bg-white p-4 shadow-none border-none ring-0 w-3/4"
-        >
-          <h3 class="font-bold text-blue-600 mb-4">Departamento 4</h3>
-          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8">
-            <ul class="space-y-1">
-              <li class="py-1">Categoria</li>
-              <li class="py-1">Categoria</li>
-              <li class="py-1">Categoria</li>
-              <li class="py-1">Categoria</li>
-              <li class="py-1">Categoria</li>
-            </ul>
-            <ul class="space-y-1">
-              <li class="py-1">Categoria</li>
-              <li class="py-1">Categoria</li>
-              <li class="py-1">Categoria</li>
-              <li class="py-1">Categoria</li>
-              <li class="py-1">Categoria</li>
-            </ul>
-            <ul class="space-y-1">
-              <li class="py-1">Categoria</li>
-              <li class="py-1">Categoria</li>
-              <li class="py-1">Categoria</li>
-              <li class="py-1">Categoria</li>
-              <li class="py-1">Categoria</li>
-            </ul>
+          <div
+            id="dep-4"
+            class="category-content hidden bg-white p-4 shadow-none border-none ring-0 w-3/4"
+          >
+            <div
+              class="grid grid-cols-1 sm:grid-c ols-2 lg:grid-cols-4 gap-x-28"
+            >
+              <ul class="space-y-1">
+                <li class="font-bold text-blue-600 py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+              </ul>
+              <ul class="space-y-1">
+                <li class="font-bold text-blue-600 py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+              </ul>
+              <ul class="space-y-1">
+                <li class="font-bold text-blue-600 py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+              </ul>
+              <ul class="space-y-1">
+                <li class="font-bold text-blue-600 py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+              </ul>
+            </div>
           </div>
-        </div>
-        <div
-          id="dep-5"
-          class="category-content hidden bg-white p-4 shadow-none border-none ring-0 w-3/4"
-        >
-          <h3 class="font-bold text-blue-600 mb-4">Departamento 5</h3>
-          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8">
-            <ul class="space-y-1">
-              <li class="py-1">Categoria</li>
-              <li class="py-1">Categoria</li>
-              <li class="py-1">Categoria</li>
-              <li class="py-1">Categoria</li>
-              <li class="py-1">Categoria</li>
-            </ul>
-            <ul class="space-y-1">
-              <li class="py-1">Categoria</li>
-              <li class="py-1">Categoria</li>
-              <li class="py-1">Categoria</li>
-              <li class="py-1">Categoria</li>
-              <li class="py-1">Categoria</li>
-            </ul>
-            <ul class="space-y-1">
-              <li class="py-1">Categoria</li>
-              <li class="py-1">Categoria</li>
-              <li class="py-1">Categoria</li>
-              <li class="py-1">Categoria</li>
-              <li class="py-1">Categoria</li>
-            </ul>
+          <div
+            id="dep-5"
+            class="category-content hidden bg-white p-4 shadow-none border-none ring-0 w-3/4"
+          >
+            <div
+              class="grid grid-cols-1 sm:grid-c ols-2 lg:grid-cols-4 gap-x-28"
+            >
+              <ul class="space-y-1">
+                <li class="font-bold text-blue-600 py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+              </ul>
+              <ul class="space-y-1">
+                <li class="font-bold text-blue-600 py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+              </ul>
+              <ul class="space-y-1">
+                <li class="font-bold text-blue-600 py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+              </ul>
+              <ul class="space-y-1">
+                <li class="font-bold text-blue-600 py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+              </ul>
+            </div>
           </div>
-        </div>
-        <div
-          id="dep-6"
-          class="category-content hidden bg-white p-4 shadow-none border-none ring-0 w-3/4"
-        >
-          <h3 class="font-bold text-blue-600 mb-4">Departamento 6</h3>
-          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8">
-            <ul class="space-y-1">
-              <li class="py-1">Categoria</li>
-              <li class="py-1">Categoria</li>
-              <li class="py-1">Categoria</li>
-              <li class="py-1">Categoria</li>
-              <li class="py-1">Categoria</li>
-            </ul>
-            <ul class="space-y-1">
-              <li class="py-1">Categoria</li>
-              <li class="py-1">Categoria</li>
-              <li class="py-1">Categoria</li>
-              <li class="py-1">Categoria</li>
-              <li class="py-1">Categoria</li>
-            </ul>
-            <ul class="space-y-1">
-              <li class="py-1">Categoria</li>
-              <li class="py-1">Categoria</li>
-              <li class="py-1">Categoria</li>
-              <li class="py-1">Categoria</li>
-              <li class="py-1">Categoria</li>
-            </ul>
+          <div
+            id="dep-6"
+            class="category-content hidden bg-white p-4 shadow-none border-none ring-0 w-3/4"
+          >
+            <div
+              class="grid grid-cols-1 sm:grid-c ols-2 lg:grid-cols-4 gap-x-28"
+            >
+              <ul class="space-y-1">
+                <li class="font-bold text-blue-600 py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+              </ul>
+              <ul class="space-y-1">
+                <li class="font-bold text-blue-600 py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+              </ul>
+              <ul class="space-y-1">
+                <li class="font-bold text-blue-600 py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+              </ul>
+              <ul class="space-y-1">
+                <li class="font-bold text-blue-600 py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+              </ul>
+            </div>
           </div>
-        </div>
-        <div
-          id="dep-7"
-          class="category-content hidden bg-white p-4 shadow-none border-none ring-0 w-3/4"
-        >
-          <h3 class="font-bold text-blue-600 mb-4">Departamento 7</h3>
-          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8">
-            <ul class="space-y-1">
-              <li class="py-1">Categoria</li>
-              <li class="py-1">Categoria</li>
-              <li class="py-1">Categoria</li>
-              <li class="py-1">Categoria</li>
-              <li class="py-1">Categoria</li>
-            </ul>
-            <ul class="space-y-1">
-              <li class="py-1">Categoria</li>
-              <li class="py-1">Categoria</li>
-              <li class="py-1">Categoria</li>
-              <li class="py-1">Categoria</li>
-              <li class="py-1">Categoria</li>
-            </ul>
-            <ul class="space-y-1">
-              <li class="py-1">Categoria</li>
-              <li class="py-1">Categoria</li>
-              <li class="py-1">Categoria</li>
-              <li class="py-1">Categoria</li>
-              <li class="py-1">Categoria</li>
-            </ul>
+          <div
+            id="dep-7"
+            class="category-content hidden bg-white p-4 shadow-none border-none ring-0 w-3/4"
+          >
+            <div
+              class="grid grid-cols-1 sm:grid-c ols-2 lg:grid-cols-4 gap-x-28"
+            >
+              <ul class="space-y-1">
+                <li class="font-bold text-blue-600 py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+              </ul>
+              <ul class="space-y-1">
+                <li class="font-bold text-blue-600 py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+              </ul>
+              <ul class="space-y-1">
+                <li class="font-bold text-blue-600 py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+              </ul>
+              <ul class="space-y-1">
+                <li class="font-bold text-blue-600 py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+              </ul>
+            </div>
           </div>
-        </div>
-        <div
-          id="dep-8"
-          class="category-content hidden bg-white p-4 shadow-none border-none ring-0 w-3/4"
-        >
-          <h3 class="font-bold text-blue-600 mb-4">Departamento 8</h3>
-          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8">
-            <ul class="space-y-1">
-              <li class="py-1">Categoria</li>
-              <li class="py-1">Categoria</li>
-              <li class="py-1">Categoria</li>
-              <li class="py-1">Categoria</li>
-              <li class="py-1">Categoria</li>
-            </ul>
-            <ul class="space-y-1">
-              <li class="py-1">Categoria</li>
-              <li class="py-1">Categoria</li>
-              <li class="py-1">Categoria</li>
-              <li class="py-1">Categoria</li>
-              <li class="py-1">Categoria</li>
-            </ul>
-            <ul class="space-y-1">
-              <li class="py-1">Categoria</li>
-              <li class="py-1">Categoria</li>
-              <li class="py-1">Categoria</li>
-              <li class="py-1">Categoria</li>
-              <li class="py-1">Categoria</li>
-            </ul>
+          <div
+            id="dep-8"
+            class="category-content hidden bg-white p-4 shadow-none border-none ring-0 w-3/4"
+          >
+            <div
+              class="grid grid-cols-1 sm:grid-c ols-2 lg:grid-cols-4 gap-x-28"
+            >
+              <ul class="space-y-1">
+                <li class="font-bold text-blue-600 py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+              </ul>
+              <ul class="space-y-1">
+                <li class="font-bold text-blue-600 py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+              </ul>
+              <ul class="space-y-1">
+                <li class="font-bold text-blue-600 py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+              </ul>
+              <ul class="space-y-1">
+                <li class="font-bold text-blue-600 py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+              </ul>
+            </div>
           </div>
-        </div>
-        <div
-          id="dep-9"
-          class="category-content hidden bg-white p-4 shadow-none border-none ring-0 w-3/4"
-        >
-          <h3 class="font-bold text-blue-600 mb-4">Departamento 9</h3>
-          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8">
-            <ul class="space-y-1">
-              <li class="py-1">Categoria</li>
-              <li class="py-1">Categoria</li>
-              <li class="py-1">Categoria</li>
-              <li class="py-1">Categoria</li>
-              <li class="py-1">Categoria</li>
-            </ul>
-            <ul class="space-y-1">
-              <li class="py-1">Categoria</li>
-              <li class="py-1">Categoria</li>
-              <li class="py-1">Categoria</li>
-              <li class="py-1">Categoria</li>
-              <li class="py-1">Categoria</li>
-            </ul>
-            <ul class="space-y-1">
-              <li class="py-1">Categoria</li>
-              <li class="py-1">Categoria</li>
-              <li class="py-1">Categoria</li>
-              <li class="py-1">Categoria</li>
-              <li class="py-1">Categoria</li>
-            </ul>
+          <div
+            id="dep-9"
+            class="category-content hidden bg-white p-4 shadow-none border-none ring-0 w-3/4"
+          >
+            <div
+              class="grid grid-cols-1 sm:grid-c ols-2 lg:grid-cols-4 gap-x-28"
+            >
+              <ul class="space-y-1">
+                <li class="font-bold text-blue-600 py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+              </ul>
+              <ul class="space-y-1">
+                <li class="font-bold text-blue-600 py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+              </ul>
+              <ul class="space-y-1">
+                <li class="font-bold text-blue-600 py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+              </ul>
+              <ul class="space-y-1">
+                <li class="font-bold text-blue-600 py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+              </ul>
+            </div>
           </div>
-        </div>
-        <div
-          id="dep-10"
-          class="category-content hidden bg-white p-4 shadow-none border-none ring-0 w-3/4"
-        >
-          <h3 class="font-bold text-blue-600 mb-4">Departamento 10</h3>
-          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8">
-            <ul class="space-y-1">
-              <li class="py-1">Categoria</li>
-              <li class="py-1">Categoria</li>
-              <li class="py-1">Categoria</li>
-              <li class="py-1">Categoria</li>
-              <li class="py-1">Categoria</li>
-            </ul>
-            <ul class="space-y-1">
-              <li class="py-1">Categoria</li>
-              <li class="py-1">Categoria</li>
-              <li class="py-1">Categoria</li>
-              <li class="py-1">Categoria</li>
-              <li class="py-1">Categoria</li>
-            </ul>
-            <ul class="space-y-1">
-              <li class="py-1">Categoria</li>
-              <li class="py-1">Categoria</li>
-              <li class="py-1">Categoria</li>
-              <li class="py-1">Categoria</li>
-              <li class="py-1">Categoria</li>
-            </ul>
+          <div
+            id="dep-10"
+            class="category-content hidden bg-white p-4 shadow-none border-none ring-0 w-3/4"
+          >
+            <div
+              class="grid grid-cols-1 sm:grid-c ols-2 lg:grid-cols-4 gap-x-28"
+            >
+              <ul class="space-y-1">
+                <li class="font-bold text-blue-600 py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+              </ul>
+              <ul class="space-y-1">
+                <li class="font-bold text-blue-600 py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+              </ul>
+              <ul class="space-y-1">
+                <li class="font-bold text-blue-600 py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+              </ul>
+              <ul class="space-y-1">
+                <li class="font-bold text-blue-600 py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+                <li class="py-1">Categoria</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Div vazia para empurrar a imagem -->
+          <div class="flex-grow"></div>
+
+          <!--imagem menu -->
+          <div class="w-56 ml-32 mt-5">
+            <img
+              src="imagens/img_menu.png"
+              alt="Imagem Departamento 1"
+              class="object-cover rounded-lg shadow-md"
+            />
           </div>
         </div>
       </div>
@@ -571,12 +799,12 @@
             id="carousel"
             class="flex gap-4 overflow-x-auto scroll-smooth px-10 md:px-16 scrollbar-hide snap-x snap-proximity"
           >
-            <!-- Card de produto (repita quantos quiser) -->
+            <!-- Card de produto -->
             <div
-              class="min-w-[220px] max-w-[250px] p-4 border rounded-lg shadow-lg flex-shrink-0 flex flex-col items-center bg-white snap-start"
+              class="relative min-w-[220px] max-w-[250px] p-4 border rounded-lg shadow-lg flex-shrink-0 flex flex-col items-center bg-white snap-start"
             >
               <span
-                class="bg-blue-500 text-white px-2 py-1 text-xs rounded-full"
+                class="absolute top-1 left-1 bg-blue-900 text-white px-3 py-1 text-xs rounded-full"
                 >NOVO</span
               >
               <img
@@ -592,15 +820,16 @@
                 >10% OFF</span
               >
               <p class="text-xs text-gray-500 mt-1">Ou em até 10x de R$ 7,90</p>
-              <button class="mt-4 bg-blue-600 text-white px-4 py-2 rounded-md">
+              <button class="mt-6 bg-blue-600 text-white px-12 py-2 rounded-md">
                 Comprar
               </button>
             </div>
+
             <div
-              class="min-w-[220px] max-w-[250px] p-4 border rounded-lg shadow-lg flex-shrink-0 flex flex-col items-center bg-white snap-start"
+              class="relative min-w-[220px] max-w-[250px] p-4 border rounded-lg shadow-lg flex-shrink-0 flex flex-col items-center bg-white snap-start"
             >
               <span
-                class="bg-blue-500 text-white px-2 py-1 text-xs rounded-full"
+                class="absolute top-1 left-1 bg-blue-900 text-white px-3 py-1 text-xs rounded-full"
                 >NOVO</span
               >
               <img
@@ -616,15 +845,16 @@
                 >10% OFF</span
               >
               <p class="text-xs text-gray-500 mt-1">Ou em até 10x de R$ 7,90</p>
-              <button class="mt-4 bg-blue-600 text-white px-4 py-2 rounded-md">
+              <button class="mt-6 bg-blue-600 text-white px-12 py-2 rounded-md">
                 Comprar
               </button>
             </div>
+
             <div
-              class="min-w-[220px] max-w-[250px] p-4 border rounded-lg shadow-lg flex-shrink-0 flex flex-col items-center bg-white snap-start"
+              class="relative min-w-[220px] max-w-[250px] p-4 border rounded-lg shadow-lg flex-shrink-0 flex flex-col items-center bg-white snap-start"
             >
               <span
-                class="bg-blue-500 text-white px-2 py-1 text-xs rounded-full"
+                class="absolute top-1 left-1 bg-blue-900 text-white px-3 py-1 text-xs rounded-full"
                 >NOVO</span
               >
               <img
@@ -640,15 +870,15 @@
                 >10% OFF</span
               >
               <p class="text-xs text-gray-500 mt-1">Ou em até 10x de R$ 7,90</p>
-              <button class="mt-4 bg-blue-600 text-white px-4 py-2 rounded-md">
+              <button class="mt-6 bg-blue-600 text-white px-12 py-2 rounded-md">
                 Comprar
               </button>
             </div>
             <div
-              class="min-w-[220px] max-w-[250px] p-4 border rounded-lg shadow-lg flex-shrink-0 flex flex-col items-center bg-white snap-start"
+              class="relative min-w-[220px] max-w-[250px] p-4 border rounded-lg shadow-lg flex-shrink-0 flex flex-col items-center bg-white snap-start"
             >
               <span
-                class="bg-blue-500 text-white px-2 py-1 text-xs rounded-full"
+                class="absolute top-1 left-1 bg-blue-900 text-white px-3 py-1 text-xs rounded-full"
                 >NOVO</span
               >
               <img
@@ -664,15 +894,15 @@
                 >10% OFF</span
               >
               <p class="text-xs text-gray-500 mt-1">Ou em até 10x de R$ 7,90</p>
-              <button class="mt-4 bg-blue-600 text-white px-4 py-2 rounded-md">
+              <button class="mt-6 bg-blue-600 text-white px-12 py-2 rounded-md">
                 Comprar
               </button>
             </div>
             <div
-              class="min-w-[220px] max-w-[250px] p-4 border rounded-lg shadow-lg flex-shrink-0 flex flex-col items-center bg-white snap-start"
+              class="relative min-w-[220px] max-w-[250px] p-4 border rounded-lg shadow-lg flex-shrink-0 flex flex-col items-center bg-white snap-start"
             >
               <span
-                class="bg-blue-500 text-white px-2 py-1 text-xs rounded-full"
+                class="absolute top-1 left-1 bg-blue-900 text-white px-3 py-1 text-xs rounded-full"
                 >NOVO</span
               >
               <img
@@ -688,15 +918,15 @@
                 >10% OFF</span
               >
               <p class="text-xs text-gray-500 mt-1">Ou em até 10x de R$ 7,90</p>
-              <button class="mt-4 bg-blue-600 text-white px-4 py-2 rounded-md">
+              <button class="mt-6 bg-blue-600 text-white px-12 py-2 rounded-md">
                 Comprar
               </button>
             </div>
             <div
-              class="min-w-[220px] max-w-[250px] p-4 border rounded-lg shadow-lg flex-shrink-0 flex flex-col items-center bg-white snap-start"
+              class="relative min-w-[220px] max-w-[250px] p-4 border rounded-lg shadow-lg flex-shrink-0 flex flex-col items-center bg-white snap-start"
             >
               <span
-                class="bg-blue-500 text-white px-2 py-1 text-xs rounded-full"
+                class="absolute top-1 left-1 bg-blue-900 text-white px-3 py-1 text-xs rounded-full"
                 >NOVO</span
               >
               <img
@@ -712,15 +942,15 @@
                 >10% OFF</span
               >
               <p class="text-xs text-gray-500 mt-1">Ou em até 10x de R$ 7,90</p>
-              <button class="mt-4 bg-blue-600 text-white px-4 py-2 rounded-md">
+              <button class="mt-6 bg-blue-600 text-white px-12 py-2 rounded-md">
                 Comprar
               </button>
             </div>
             <div
-              class="min-w-[220px] max-w-[250px] p-4 border rounded-lg shadow-lg flex-shrink-0 flex flex-col items-center bg-white snap-start"
+              class="relative min-w-[220px] max-w-[250px] p-4 border rounded-lg shadow-lg flex-shrink-0 flex flex-col items-center bg-white snap-start"
             >
               <span
-                class="bg-blue-500 text-white px-2 py-1 text-xs rounded-full"
+                class="absolute top-1 left-1 bg-blue-900 text-white px-3 py-1 text-xs rounded-full"
                 >NOVO</span
               >
               <img
@@ -736,15 +966,15 @@
                 >10% OFF</span
               >
               <p class="text-xs text-gray-500 mt-1">Ou em até 10x de R$ 7,90</p>
-              <button class="mt-4 bg-blue-600 text-white px-4 py-2 rounded-md">
+              <button class="mt-6 bg-blue-600 text-white px-12 py-2 rounded-md">
                 Comprar
               </button>
             </div>
             <div
-              class="min-w-[220px] max-w-[250px] p-4 border rounded-lg shadow-lg flex-shrink-0 flex flex-col items-center bg-white snap-start"
+              class="relative min-w-[220px] max-w-[250px] p-4 border rounded-lg shadow-lg flex-shrink-0 flex flex-col items-center bg-white snap-start"
             >
               <span
-                class="bg-blue-500 text-white px-2 py-1 text-xs rounded-full"
+                class="absolute top-1 left-1 bg-blue-900 text-white px-3 py-1 text-xs rounded-full"
                 >NOVO</span
               >
               <img
@@ -760,15 +990,15 @@
                 >10% OFF</span
               >
               <p class="text-xs text-gray-500 mt-1">Ou em até 10x de R$ 7,90</p>
-              <button class="mt-4 bg-blue-600 text-white px-4 py-2 rounded-md">
+              <button class="mt-6 bg-blue-600 text-white px-12 py-2 rounded-md">
                 Comprar
               </button>
             </div>
             <div
-              class="min-w-[220px] max-w-[250px] p-4 border rounded-lg shadow-lg flex-shrink-0 flex flex-col items-center bg-white snap-start"
+              class="relative min-w-[220px] max-w-[250px] p-4 border rounded-lg shadow-lg flex-shrink-0 flex flex-col items-center bg-white snap-start"
             >
               <span
-                class="bg-blue-500 text-white px-2 py-1 text-xs rounded-full"
+                class="absolute top-1 left-1 bg-blue-900 text-white px-3 py-1 text-xs rounded-full"
                 >NOVO</span
               >
               <img
@@ -784,7 +1014,7 @@
                 >10% OFF</span
               >
               <p class="text-xs text-gray-500 mt-1">Ou em até 10x de R$ 7,90</p>
-              <button class="mt-4 bg-blue-600 text-white px-4 py-2 rounded-md">
+              <button class="mt-6 bg-blue-600 text-white px-12 py-2 rounded-md">
                 Comprar
               </button>
             </div>
@@ -845,7 +1075,7 @@
         </div>
       </div>
 
-      <div class="bg-[#E7E7EA] w-full py-12">
+      <div class="bg-[#DEDEDE] w-full py-12">
         <div
           class="flex flex-col-reverse md:flex-row items-center p-8 md:p-12 rounded-lg max-w-5xl mx-auto"
         >
@@ -972,10 +1202,10 @@
           >
             <!-- Card de produto (repita quantos quiser) -->
             <div
-              class="min-w-[220px] max-w-[250px] p-4 border rounded-lg shadow-lg flex-shrink-0 flex flex-col items-center bg-white snap-start"
+              class="relative min-w-[220px] max-w-[250px] p-4 border rounded-lg shadow-lg flex-shrink-0 flex flex-col items-center bg-white snap-start"
             >
               <span
-                class="bg-blue-500 text-white px-2 py-1 text-xs rounded-full"
+                class="absolute top-1 left-1 bg-blue-900 text-white px-3 py-1 text-xs rounded-full"
                 >NOVO</span
               >
               <img
@@ -991,15 +1221,15 @@
                 >10% OFF</span
               >
               <p class="text-xs text-gray-500 mt-1">Ou em até 10x de R$ 7,90</p>
-              <button class="mt-4 bg-blue-600 text-white px-4 py-2 rounded-md">
+              <button class="mt-6 bg-blue-600 text-white px-12 py-2 rounded-md">
                 Comprar
               </button>
             </div>
             <div
-              class="min-w-[220px] max-w-[250px] p-4 border rounded-lg shadow-lg flex-shrink-0 flex flex-col items-center bg-white snap-start"
+              class="relative min-w-[220px] max-w-[250px] p-4 border rounded-lg shadow-lg flex-shrink-0 flex flex-col items-center bg-white snap-start"
             >
               <span
-                class="bg-blue-500 text-white px-2 py-1 text-xs rounded-full"
+                class="absolute top-1 left-1 bg-blue-900 text-white px-3 py-1 text-xs rounded-full"
                 >NOVO</span
               >
               <img
@@ -1015,15 +1245,15 @@
                 >10% OFF</span
               >
               <p class="text-xs text-gray-500 mt-1">Ou em até 10x de R$ 7,90</p>
-              <button class="mt-4 bg-blue-600 text-white px-4 py-2 rounded-md">
+              <button class="mt-6 bg-blue-600 text-white px-12 py-2 rounded-md">
                 Comprar
               </button>
             </div>
             <div
-              class="min-w-[220px] max-w-[250px] p-4 border rounded-lg shadow-lg flex-shrink-0 flex flex-col items-center bg-white snap-start"
+              class="relative min-w-[220px] max-w-[250px] p-4 border rounded-lg shadow-lg flex-shrink-0 flex flex-col items-center bg-white snap-start"
             >
               <span
-                class="bg-blue-500 text-white px-2 py-1 text-xs rounded-full"
+                class="absolute top-1 left-1 bg-blue-900 text-white px-3 py-1 text-xs rounded-full"
                 >NOVO</span
               >
               <img
@@ -1039,15 +1269,15 @@
                 >10% OFF</span
               >
               <p class="text-xs text-gray-500 mt-1">Ou em até 10x de R$ 7,90</p>
-              <button class="mt-4 bg-blue-600 text-white px-4 py-2 rounded-md">
+              <button class="mt-6 bg-blue-600 text-white px-12 py-2 rounded-md">
                 Comprar
               </button>
             </div>
             <div
-              class="min-w-[220px] max-w-[250px] p-4 border rounded-lg shadow-lg flex-shrink-0 flex flex-col items-center bg-white snap-start"
+              class="relative min-w-[220px] max-w-[250px] p-4 border rounded-lg shadow-lg flex-shrink-0 flex flex-col items-center bg-white snap-start"
             >
               <span
-                class="bg-blue-500 text-white px-2 py-1 text-xs rounded-full"
+                class="absolute top-1 left-1 bg-blue-900 text-white px-3 py-1 text-xs rounded-full"
                 >NOVO</span
               >
               <img
@@ -1063,15 +1293,15 @@
                 >10% OFF</span
               >
               <p class="text-xs text-gray-500 mt-1">Ou em até 10x de R$ 7,90</p>
-              <button class="mt-4 bg-blue-600 text-white px-4 py-2 rounded-md">
+              <button class="mt-6 bg-blue-600 text-white px-12 py-2 rounded-md">
                 Comprar
               </button>
             </div>
             <div
-              class="min-w-[220px] max-w-[250px] p-4 border rounded-lg shadow-lg flex-shrink-0 flex flex-col items-center bg-white snap-start"
+              class="relative min-w-[220px] max-w-[250px] p-4 border rounded-lg shadow-lg flex-shrink-0 flex flex-col items-center bg-white snap-start"
             >
               <span
-                class="bg-blue-500 text-white px-2 py-1 text-xs rounded-full"
+                class="absolute top-1 left-1 bg-blue-900 text-white px-3 py-1 text-xs rounded-full"
                 >NOVO</span
               >
               <img
@@ -1087,168 +1317,176 @@
                 >10% OFF</span
               >
               <p class="text-xs text-gray-500 mt-1">Ou em até 10x de R$ 7,90</p>
-              <button class="mt-4 bg-blue-600 text-white px-4 py-2 rounded-md">
+              <button class="mt-6 bg-blue-600 text-white px-12 py-2 rounded-md">
                 Comprar
               </button>
             </div>
-            <div
-              class="min-w-[220px] max-w-[250px] p-4 border rounded-lg shadow-lg flex-shrink-0 flex flex-col items-center bg-white snap-start"
+
+            <!-- Botão próximo -->
+            <button
+              class="absolute right-0 top-1/2 transform -translate-y-1/2 z-10 bg-white p-2 md:p-3 rounded-full shadow-md"
+              onclick="scrollCarousel(1)"
             >
-              <span
-                class="bg-blue-500 text-white px-2 py-1 text-xs rounded-full"
-                >NOVO</span
-              >
-              <img
-                src="imagens/blusa1.webp"
-                alt="Produto"
-                class="w-40 h-42 my-2"
-              />
-              <h3 class="text-sm font-semibold text-center">Produto 1</h3>
-              <div class="text-gray-500 line-through">R$100,00</div>
-              <div class="text-green-600 font-bold">R$79,90</div>
-              <span
-                class="bg-green-100 text-green-600 text-xs px-2 py-1 rounded-md"
-                >10% OFF</span
-              >
-              <p class="text-xs text-gray-500 mt-1">Ou em até 10x de R$ 7,90</p>
-              <button class="mt-4 bg-blue-600 text-white px-4 py-2 rounded-md">
-                Comprar
-              </button>
-            </div>
-            <div
-              class="min-w-[220px] max-w-[250px] p-4 border rounded-lg shadow-lg flex-shrink-0 flex flex-col items-center bg-white snap-start"
+              &#8594;
+            </button>
+          </div>
+        </div>
+
+        <div class="relative w-full h-[40vh] md:h-[50vh] lg:h-[60vh] mt-10">
+          <img
+            src="imagens/fundoavanti2.png"
+            alt="Imagem de fundo"
+            class="w-full h-full object-cover"
+          />
+          <div
+            class="absolute inset-x-0 top-[46%] transform -translate-y-1/2 text-white text-center px-6 py-3 text-lg w-full"
+          >
+            Entre em contato conosco e verifique a disponibilidade para sua
+            região!
+          </div>
+        </div>
+
+        <div class="flex justify-center mt-12">
+          <div
+            class="w-full max-w-4xl p-6 bg-gray-200 rounded-lg shadow-md flex flex-col items-center"
+          >
+            <h2 class="text-center text-lg font-semibold mb-4">
+              Cadastre-se na nossa
+              <a href="#" class="text-blue-600">newsletter</a>
+            </h2>
+            <form
+              id="formCadastro"
+              class="flex flex-col items-center md:flex-row md:justify-center gap-4 w-full"
             >
-              <span
-                class="bg-blue-500 text-white px-2 py-1 text-xs rounded-full"
-                >NOVO</span
-              >
-              <img
-                src="imagens/blusa2.webp"
-                alt="Produto"
-                class="w-40 h-42 my-2"
+              <input
+                type="text"
+                id="nome"
+                placeholder="Digite seu nome"
+                class="w-full md:w-auto px-4 py-2 border rounded-lg outline-none"
+                required
               />
-              <h3 class="text-sm font-semibold text-center">Produto 2</h3>
-              <div class="text-gray-500 line-through">R$100,00</div>
-              <div class="text-green-600 font-bold">R$79,90</div>
-              <span
-                class="bg-green-100 text-green-600 text-xs px-2 py-1 rounded-md"
-                >10% OFF</span
+              <input
+                type="email"
+                id="email"
+                placeholder="Digite seu e-mail"
+                class="w-full md:w-auto px-4 py-2 border rounded-lg outline-none"
+                required
+              />
+              <div class="flex items-center">
+                <input type="checkbox" id="privacy" class="mr-2" required />
+                <label for="privacy" class="text-sm text-gray-600">
+                  Estou de acordo com a
+                  <a href="#" class="text-gray-800 underline"
+                    >Política de Privacidade</a
+                  >
+                </label>
+              </div>
+              <button
+                type="submit"
+                class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
               >
-              <p class="text-xs text-gray-500 mt-1">Ou em até 10x de R$ 7,90</p>
-              <button class="mt-4 bg-blue-600 text-white px-4 py-2 rounded-md">
-                Comprar
+                Cadastrar
               </button>
-            </div>
+            </form>
+
+            <!-- Formulário Adicional -->
             <div
-              class="min-w-[220px] max-w-[250px] p-4 border rounded-lg shadow-lg flex-shrink-0 flex flex-col items-center bg-white snap-start"
+              id="formularioAdicional"
+              class="hidden flex flex-col items-center w-full mt-4"
             >
-              <span
-                class="bg-blue-500 text-white px-2 py-1 text-xs rounded-full"
-                >NOVO</span
+              <h2 class="text-center text-lg font-semibold mb-4">
+                Mais Informações
+              </h2>
+              <p class="text-center text-sm text-gray-600 mb-4">
+                Por favor, preencha as informações abaixo para completar seu
+                cadastro. Isso nos ajudará a oferecer um serviço mais
+                personalizado e eficiente.
+              </p>
+              <form
+                id="formMaisInformacoes"
+                class="flex flex-col items-center w-full space-y-4"
               >
-              <img
-                src="imagens/blusa3.webp"
-                alt="Produto"
-                class="w-40 h-42 my-2"
-              />
-              <h3 class="text-sm font-semibold text-center">Produto 3</h3>
-              <div class="text-gray-500 line-through">R$100,00</div>
-              <div class="text-green-600 font-bold">R$79,90</div>
-              <span
-                class="bg-green-100 text-green-600 text-xs px-2 py-1 rounded-md"
-                >10% OFF</span
-              >
-              <p class="text-xs text-gray-500 mt-1">Ou em até 10x de R$ 7,90</p>
-              <button class="mt-4 bg-blue-600 text-white px-4 py-2 rounded-md">
-                Comprar
-              </button>
-            </div>
-            <div
-              class="min-w-[220px] max-w-[250px] p-4 border rounded-lg shadow-lg flex-shrink-0 flex flex-col items-center bg-white snap-start"
-            >
-              <span
-                class="bg-blue-500 text-white px-2 py-1 text-xs rounded-full"
-                >NOVO</span
-              >
-              <img
-                src="imagens/blusa5.webp"
-                alt="Produto"
-                class="w-40 h-42 my-2"
-              />
-              <h3 class="text-sm font-semibold text-center">Produto 5</h3>
-              <div class="text-gray-500 line-through">R$100,00</div>
-              <div class="text-green-600 font-bold">R$79,90</div>
-              <span
-                class="bg-green-100 text-green-600 text-xs px-2 py-1 rounded-md"
-                >10% OFF</span
-              >
-              <p class="text-xs text-gray-500 mt-1">Ou em até 10x de R$ 7,90</p>
-              <button class="mt-4 bg-blue-600 text-white px-4 py-2 rounded-md">
-                Comprar
-              </button>
+                <input
+                  type="text"
+                  id="telefone"
+                  placeholder="Digite seu telefone"
+                  class="w-full md:w-1/2 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  required
+                />
+                <input
+                  type="text"
+                  id="endereco"
+                  placeholder="Digite seu endereço"
+                  class="w-full md:w-1/2 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  required
+                />
+                <input
+                  type="text"
+                  id="cidade"
+                  placeholder="Digite sua cidade"
+                  class="w-full md:w-1/2 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  required
+                />
+                <input
+                  type="text"
+                  id="estado"
+                  placeholder="Digite seu estado"
+                  class="w-full md:w-1/2 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  required
+                />
+                <input
+                  type="text"
+                  id="cep"
+                  placeholder="Digite seu CEP"
+                  class="w-full md:w-1/2 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  required
+                />
+                <input
+                  type="date"
+                  id="dataNascimento"
+                  class="w-full md:w-1/2 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  required
+                />
+                <select
+                  id="genero"
+                  class="w-full md:w-1/2 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  required
+                >
+                  <option value="" disabled selected>
+                    Selecione seu gênero
+                  </option>
+                  <option value="masculino">Masculino</option>
+                  <option value="feminino">Feminino</option>
+                  <option value="outro">Outro</option>
+                </select>
+                <div class="flex items-center">
+                  <label class="text-sm text-gray-600 mr-2"
+                    >Preferências de contato:</label
+                  >
+                  <div class="flex space-x-4">
+                    <label>
+                      <input type="checkbox" id="contatoEmail" class="mr-1" />
+                      E-mail
+                    </label>
+                    <label>
+                      <input
+                        type="checkbox"
+                        id="contatoTelefone"
+                        class="mr-1"
+                      />
+                      Telefone
+                    </label>
+                  </div>
+                </div>
+                <button
+                  type="submit"
+                  class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
+                >
+                  ENVIAR
+                </button>
+              </form>
             </div>
           </div>
-          <!-- Botão próximo -->
-          <button
-            class="absolute right-0 top-1/2 transform -translate-y-1/2 z-10 bg-white p-2 md:p-3 rounded-full shadow-md"
-            onclick="scrollCarousel(1)"
-          >
-            &#8594;
-          </button>
-        </div>
-      </div>
-
-      <div class="relative w-full h-[40vh] md:h-[50vh] lg:h-[60vh] mt-10">
-        <img
-          src="imagens/fundoavanti2.png"
-          alt="Imagem de fundo"
-          class="w-full h-full object-cover"
-        />
-        <div
-          class="absolute inset-x-0 top-[46%] transform -translate-y-1/2 text-white text-center px-6 py-3 text-lg font-semibold w-full"
-        >
-          Entre em contato conosco e verifique a disponibilidade para sua
-          região!
-        </div>
-      </div>
-
-      <div class="flex justify-center mt-12">
-        <div
-          class="w-full max-w-4xl p-6 bg-gray-200 rounded-lg shadow-md flex flex-col items-center"
-        >
-          <h2 class="text-center text-lg font-semibold mb-4">
-            Cadastre-se na nossa
-            <a href="#" class="text-blue-600">newsletter</a>
-          </h2>
-          <form
-            class="flex flex-col items-center md:flex-row md:justify-center gap-4 w-full"
-          >
-            <input
-              type="text"
-              placeholder="Digite seu nome"
-              class="w-full md:w-auto px-4 py-2 border rounded-lg outline-none"
-            />
-            <input
-              type="email"
-              placeholder="Digite seu e-mail"
-              class="w-full md:w-auto px-4 py-2 border rounded-lg outline-none"
-            />
-            <div class="flex items-center">
-              <input type="checkbox" id="privacy" class="mr-2" />
-              <label for="privacy" class="text-sm text-gray-600">
-                Estou de acordo com a
-                <a href="#" class="text-gray-800 underline"
-                  >Política de Privacidade</a
-                >
-              </label>
-            </div>
-            <button
-              type="submit"
-              class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
-            >
-              Cadastrar
-            </button>
-          </form>
         </div>
       </div>
     </main>
@@ -1262,10 +1500,16 @@
 
           <!-- Redes sociais -->
           <div class="flex space-x-6 text-blue-600 text-2xl">
-            <a href="#"><i class="fab fa-instagram"></i></a>
-            <a href="#"><i class="fab fa-facebook-f"></i></a>
-            <a href="#"><i class="fab fa-youtube"></i></a>
-            <a href="#"><i class="fab fa-tiktok"></i></a>
+            <a href="https://www.instagram.com/"
+              ><i class="fab fa-instagram"></i
+            ></a>
+            <a href="https://www.facebook.com/?locale=pt_BR"
+              ><i class="fab fa-facebook-f"></i
+            ></a>
+            <a href="https://www.youtube.com/"
+              ><i class="fab fa-youtube"></i
+            ></a>
+            <a href="https://www.tiktok.com/"><i class="fab fa-tiktok"></i></a>
           </div>
 
           <!-- Menus em accordion -->
