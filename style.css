@@ -101,6 +101,11 @@ header {
   font-size: 1rem; /* Tamanho da fonte */
 }
 
+#dropdownMenu {
+  left: 50%; /* Alinha o menu ao centro da tela */
+  transform: translateX(10%);
+  background-color: transparent !important;
+}
 /* Responsividade para telas menores */
 @media (max-width: 768px) {
   #menu {

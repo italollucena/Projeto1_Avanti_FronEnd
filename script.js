@@ -8,45 +8,87 @@ document.addEventListener("DOMContentLoaded", function () {
   // Inicializa a contagem de itens no carrinho
   let cartCount = 0;
 
-  // Função para atualizar a contagem de itens no carrinho
+  const decreaseButtons = document.querySelectorAll(".decrease");
+  const increaseButtons = document.querySelectorAll(".increase");
+  const cartIcons = document.querySelectorAll(".cart-icon");
+  const quantityControls = document.querySelectorAll(".quantity-controls");
+  const cartQuantityEls = document.querySelectorAll(".cart-quantity");
+  const cartCountElements = document.querySelectorAll(".cart-count");
+
+  // Atualiza a contagem de itens no carrinho
   function updateCartCount() {
-    const cartCountElements = document.querySelectorAll(".cart-count");
     cartCountElements.forEach((element) => {
+      element.textContent = cartCount;
+    });
+
+    cartQuantityEls.forEach((element) => {
       element.textContent = cartCount;
     });
   }
 
-  // Função para adicionar um item ao carrinho
+  // Adiciona item ao carrinho
   function addToCart() {
     cartCount++;
     updateCartCount();
   }
 
-  // Bloqueia o zoom ao clicar no botão "Comprar"
+  // Botões + e -
+  increaseButtons.forEach((increaseButton) => {
+    increaseButton.addEventListener("click", function (e) {
+      e.stopPropagation(); // Impede que o clique feche o menu
+      cartCount++;
+      updateCartCount();
+    });
+  });
+
+  decreaseButtons.forEach((decreaseButton) => {
+    decreaseButton.addEventListener("click", function (e) {
+      e.stopPropagation(); // Impede que o clique feche o menu
+      if (cartCount > 0) {
+        cartCount--;
+        updateCartCount();
+      }
+    });
+  });
+
+  // Clique no carrinho mostra/esconde botões
+  cartIcons.forEach((cartIcon, index) => {
+    cartIcon.addEventListener("click", function (e) {
+      e.stopPropagation(); // Impede que clique fora feche o menu sem querer
+      quantityControls[index].classList.toggle("hidden"); // Alterna a visibilidade
+    });
+
+    // Fecha ao clicar fora
+    document.addEventListener("click", function (e) {
+      if (
+        !cartIcon.contains(e.target) &&
+        !quantityControls[index].contains(e.target)
+      ) {
+        quantityControls[index].classList.add("hidden"); // Esconde os controles
+      }
+    });
+  });
+
+  // Impede zoom ao clicar
   function preventZoom(event) {
-    event.preventDefault(); // Impede o comportamento padrão de zoom
+    event.preventDefault();
   }
 
-  // Função para exibir a mensagem de busca
+  // Resultado de busca
   function displaySearchResult() {
     const query = searchInput.value.trim();
-    if (query) {
-      searchResult.textContent = `Você buscou por: '${query}'`;
-    } else {
-      searchResult.textContent = "";
-    }
+    searchResult.textContent = query ? `Você buscou por: '${query}'` : "";
   }
 
-  // Alterna o menu ao clicar no botão (mobile)
+  // Menu suspenso responsivo
   if (toggleButton && dropdownMenu) {
     toggleButton.addEventListener("click", function (event) {
-      event.stopPropagation(); // Impede fechamento imediato
+      event.stopPropagation();
       if (window.innerWidth < 768) {
         dropdownMenu.classList.toggle("hidden");
       }
     });
 
-    // Fecha o menu ao clicar fora (mobile e desktop)
     document.addEventListener("click", function (event) {
       if (
         !dropdownMenu.contains(event.target) &&
@@ -56,18 +98,17 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     });
 
-    // Exibe o menu ao passar o mouse no botão (desktop)
     toggleButton.addEventListener("mouseenter", function () {
       if (window.innerWidth >= 768) {
-        // Posiciona o dropdown alinhado ao botão
         const rect = toggleButton.getBoundingClientRect();
         dropdownMenu.style.left = `${rect.left}px`;
         dropdownMenu.style.top = `${rect.bottom + window.scrollY}px`;
-        dropdownMenu.classList.remove("hidden");
+        setTimeout(() => {
+          dropdownMenu.classList.remove("hidden");
+        }, 100); // Adiciona um pequeno atraso
       }
     });
 
-    // Oculta o menu ao sair com o mouse (desktop)
     dropdownMenu.addEventListener("mouseleave", function () {
       if (window.innerWidth >= 768) {
         dropdownMenu.classList.add("hidden");
@@ -75,14 +116,13 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  // Manipulação das categorias (hover no desktop / clique no mobile)
+  // Categorias (hover no desktop / clique no mobile)
   const categoryItems = document.querySelectorAll("[data-category]");
   categoryItems.forEach((item) => {
     const showCategory = function () {
       document.querySelectorAll(".category-content").forEach((el) => {
         el.classList.add("hidden");
       });
-
       const targetId = this.getAttribute("data-category");
       const targetElement = document.getElementById(targetId);
       if (targetElement) {
@@ -90,14 +130,12 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     };
 
-    // Hover (apenas desktop)
     item.addEventListener("mouseenter", function () {
       if (window.innerWidth >= 768) {
         showCategory.call(this);
       }
     });
 
-    // Clique (apenas mobile)
     item.addEventListener("click", function () {
       if (window.innerWidth < 768) {
         showCategory.call(this);
@@ -115,63 +153,70 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  // Bloqueia o zoom por duplo toque em dispositivos móveis
+  // Impede zoom por duplo toque
   let lastTouchEnd = 0;
-  document.addEventListener(
-    "touchend",
-    function (event) {
-      const now = Date.now();
-      if (now - lastTouchEnd <= 300) {
-        event.preventDefault();
-      }
-      lastTouchEnd = now;
-    },
-    false
-  );
+  document.addEventListener("touchend", function (event) {
+    const now = Date.now();
+    if (now - lastTouchEnd <= 300) {
+      event.preventDefault();
+    }
+    lastTouchEnd = now;
+  });
 
-  // Funcionalidade de busca
+  // Busca
   searchButton.addEventListener("click", function () {
     displaySearchResult();
   });
 
-  // Adiciona evento de tecla para o campo de busca
   searchInput.addEventListener("keypress", function (event) {
     if (event.key === "Enter") {
       displaySearchResult();
     }
   });
 
-  // Adiciona o evento de clique a todos os botões "Comprar"
+  // Botões "Comprar"
   const buyButtons = document.querySelectorAll("button.mt-6.bg-blue-600");
   buyButtons.forEach((button) => {
-    button.addEventListener("click", function (event) {
-      preventZoom(event); // Impede o zoom ao clicar
-      addToCart(); // Adiciona ao carrinho
-    });
+    const handleBuy = function (event) {
+      preventZoom(event);
+      addToCart();
+    };
+
+    button.addEventListener("touchstart", handleBuy, { passive: false });
+    button.addEventListener("click", handleBuy);
   });
 
-  // Cadastro e Formulário Adicional
+  // Formulário de cadastro
   const formCadastro = document.getElementById("formCadastro");
   const formularioAdicional = document.getElementById("formularioAdicional");
   const formMaisInformacoes = document.getElementById("formMaisInformacoes");
 
   if (formCadastro) {
     formCadastro.addEventListener("submit", function (event) {
-      event.preventDefault(); // Impede o envio do formulário
-      formularioAdicional.classList.remove("hidden"); // Exibe o formulário adicional
+      event.preventDefault();
+      formularioAdicional.classList.remove("hidden");
+    });
+  }
+
+  if (formularioAdicional) {
+    formularioAdicional.addEventListener("submit", function (e) {
+      e.preventDefault();
+      window.location.href = "/";
     });
   }
 
   if (formMaisInformacoes) {
     formMaisInformacoes.addEventListener("submit", function (event) {
-      event.preventDefault(); // Impede o envio do formulário
-      // Aqui você pode adicionar a lógica para enviar os dados, se necessário
-      window.location.href = "pagina_inicial.html"; // Substitua pelo URL da sua página inicial
+      event.preventDefault();
+      window.location.href = "pagina_inicial.html";
     });
   }
+
+  // Atualiza o carrinho ao iniciar
+  updateCartCount();
 });
 
-// Função de rolagem do carrossel
+// Carrossel
 window.scrollCarousel = function (direction) {
   const carousel = document.getElementById("carousel");
   if (!carousel) return;
