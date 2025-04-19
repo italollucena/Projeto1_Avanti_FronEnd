@@ -34,21 +34,45 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Botões + e -
   increaseButtons.forEach((increaseButton) => {
-    increaseButton.addEventListener("click", function (e) {
+    const handleIncrease = function (e) {
       e.stopPropagation(); // Impede que o clique feche o menu
       cartCount++;
       updateCartCount();
-    });
+    };
+
+    // Permite múltiplos toques seguidos sem zoom
+    increaseButton.addEventListener(
+      "touchstart",
+      function (e) {
+        e.preventDefault(); // Impede zoom no mobile
+        handleIncrease(e);
+      },
+      { passive: false }
+    );
+
+    increaseButton.addEventListener("click", handleIncrease);
   });
 
   decreaseButtons.forEach((decreaseButton) => {
-    decreaseButton.addEventListener("click", function (e) {
+    const handleDecrease = function (e) {
       e.stopPropagation(); // Impede que o clique feche o menu
       if (cartCount > 0) {
         cartCount--;
         updateCartCount();
       }
-    });
+    };
+
+    // Permite múltiplos toques seguidos sem zoom
+    decreaseButton.addEventListener(
+      "touchstart",
+      function (e) {
+        e.preventDefault(); // Impede zoom no mobile
+        handleDecrease(e);
+      },
+      { passive: false }
+    );
+
+    decreaseButton.addEventListener("click", handleDecrease);
   });
 
   // Clique no carrinho mostra/esconde botões
