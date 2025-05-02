@@ -5,6 +5,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const searchInput = document.querySelector("input[type='text']");
   const searchResult = document.getElementById("searchResult");
 
+  // Inicializa a contagem de itens no carrinho
   let cartCount = 0;
 
   const decreaseButtons = document.querySelectorAll(".decrease");
@@ -14,6 +15,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const cartQuantityEls = document.querySelectorAll(".cart-quantity");
   const cartCountElements = document.querySelectorAll(".cart-count");
 
+  // Atualiza a contagem de itens no carrinho
   function updateCartCount() {
     cartCountElements.forEach((element) => {
       element.textContent = cartCount;
@@ -24,22 +26,25 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
+  // Adiciona item ao carrinho
   function addToCart() {
     cartCount++;
     updateCartCount();
   }
 
+  // Botões + e -
   increaseButtons.forEach((increaseButton) => {
     const handleIncrease = function (e) {
-      e.stopPropagation();
+      e.stopPropagation(); // Impede que o clique feche o menu
       cartCount++;
       updateCartCount();
     };
 
+    // Permite múltiplos toques seguidos sem zoom
     increaseButton.addEventListener(
       "touchstart",
       function (e) {
-        e.preventDefault();
+        e.preventDefault(); // Impede zoom no mobile
         handleIncrease(e);
       },
       { passive: false }
@@ -50,17 +55,18 @@ document.addEventListener("DOMContentLoaded", function () {
 
   decreaseButtons.forEach((decreaseButton) => {
     const handleDecrease = function (e) {
-      e.stopPropagation();
+      e.stopPropagation(); // Impede que o clique feche o menu
       if (cartCount > 0) {
         cartCount--;
         updateCartCount();
       }
     };
 
+    // Permite múltiplos toques seguidos sem zoom
     decreaseButton.addEventListener(
       "touchstart",
       function (e) {
-        e.preventDefault();
+        e.preventDefault(); // Impede zoom no mobile
         handleDecrease(e);
       },
       { passive: false }
@@ -69,32 +75,36 @@ document.addEventListener("DOMContentLoaded", function () {
     decreaseButton.addEventListener("click", handleDecrease);
   });
 
+  // Clique no carrinho mostra/esconde botões
   cartIcons.forEach((cartIcon, index) => {
     cartIcon.addEventListener("click", function (e) {
-      e.stopPropagation();
-      quantityControls[index].classList.toggle("hidden");
+      e.stopPropagation(); // Impede que clique fora feche o menu sem querer
+      quantityControls[index].classList.toggle("hidden"); // Alterna a visibilidade
     });
 
+    // Fecha ao clicar fora
     document.addEventListener("click", function (e) {
       if (
         !cartIcon.contains(e.target) &&
         !quantityControls[index].contains(e.target)
       ) {
-        quantityControls[index].classList.add("hidden");
+        quantityControls[index].classList.add("hidden"); // Esconde os controles
       }
     });
   });
 
+  // Impede zoom ao clicar
   function preventZoom(event) {
     event.preventDefault();
   }
 
+  // Resultado de busca
   function displaySearchResult() {
     const query = searchInput.value.trim();
     searchResult.textContent = query ? `Você buscou por: '${query}'` : "";
   }
 
-  // Menu suspenso responsivo (atualizado)
+  // Menu suspenso responsivo
   if (toggleButton && dropdownMenu) {
     toggleButton.addEventListener("click", function (event) {
       event.stopPropagation();
@@ -114,7 +124,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
     toggleButton.addEventListener("mouseenter", function () {
       if (window.innerWidth >= 768) {
-        dropdownMenu.classList.remove("hidden");
+        const rect = toggleButton.getBoundingClientRect();
+        dropdownMenu.style.left = `${rect.left}px`;
+        dropdownMenu.style.top = `${rect.bottom + window.scrollY}px`;
+        setTimeout(() => {
+          dropdownMenu.classList.remove("hidden");
+        }, 100); // Adiciona um pequeno atraso
       }
     });
 
@@ -125,6 +140,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
+  // Categorias (hover no desktop / clique no mobile)
   const categoryItems = document.querySelectorAll("[data-category]");
   categoryItems.forEach((item) => {
     const showCategory = function () {
@@ -151,6 +167,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
+  // Exibe a primeira categoria por padrão
   const defaultCategory = document.querySelector("[data-category]");
   if (defaultCategory) {
     const firstId = defaultCategory.getAttribute("data-category");
@@ -160,6 +177,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
+  // Impede zoom por duplo toque
   let lastTouchEnd = 0;
   document.addEventListener("touchend", function (event) {
     const now = Date.now();
@@ -169,6 +187,7 @@ document.addEventListener("DOMContentLoaded", function () {
     lastTouchEnd = now;
   });
 
+  // Busca
   searchButton.addEventListener("click", function () {
     displaySearchResult();
   });
@@ -179,6 +198,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
+  // Botões "Comprar"
   const buyButtons = document.querySelectorAll("button.mt-6.bg-blue-600");
   buyButtons.forEach((button) => {
     const handleBuy = function (event) {
@@ -190,6 +210,7 @@ document.addEventListener("DOMContentLoaded", function () {
     button.addEventListener("click", handleBuy);
   });
 
+  // Formulário de cadastro
   const formCadastro = document.getElementById("formCadastro");
   const formularioAdicional = document.getElementById("formularioAdicional");
   const formMaisInformacoes = document.getElementById("formMaisInformacoes");
@@ -215,9 +236,11 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
+  // Atualiza o carrinho ao iniciar
   updateCartCount();
 });
 
+// Carrossel
 window.scrollCarousel = function (direction) {
   const carousel = document.getElementById("carousel");
   if (!carousel) return;
